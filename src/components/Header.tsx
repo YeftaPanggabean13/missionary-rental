@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
-import { Menu, X, Search, Globe, ChevronDown, MessageCircle } from 'lucide-react';
+import { Menu, X, Search, Globe, ChevronDown, MessageCircle, Clock, Shield } from 'lucide-react';
 import missionaryLogoWhite from '../img/missionary-horizontal-white.png';
 
 interface HeaderProps {
   onNavigate: (sectionId: string) => void;
   onOpenListModal: () => void;
   onSearch?: (query: string) => void;
+  onOpenTrackModal: () => void;
+  onOpenAdmin: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenListModal, onSearch }) => {
+export const Header: React.FC<HeaderProps> = ({
+  onNavigate,
+  onOpenListModal,
+  onSearch,
+  onOpenTrackModal,
+  onOpenAdmin,
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -74,13 +82,21 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenListModal, onS
           </div>
 
           {/* Right: Nav items matching screenshot */}
-          <div className="hidden lg:flex items-center gap-6 text-[14px] font-semibold">
+          <div className="hidden lg:flex items-center gap-5 text-[14px] font-semibold">
             {/* Yellow CTA Button like 'Calculate Earnings' in screenshot */}
             <button
               onClick={() => handleNavClick('browse')}
               className="bg-[#F8E01A] hover:bg-[#e7d117] text-[#212121] font-bold text-[13px] px-4 py-2 rounded-[4px] transition-colors cursor-pointer shadow-xs"
             >
               Pesan Motor
+            </button>
+
+            <button
+              onClick={onOpenTrackModal}
+              className="text-[#E0E0E0] hover:text-[#F8E01A] transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              <Clock className="w-3.5 h-3.5 text-[#F8E01A]" />
+              <span>Cek Pesanan</span>
             </button>
 
             <button
@@ -112,11 +128,15 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenListModal, onS
               WhatsApp
             </button>
 
-            {/* Language/Globe icon */}
-            <div className="flex items-center text-[#B5B5B5] hover:text-white cursor-pointer gap-1 text-[13px]">
-              <Globe className="w-4 h-4" />
-              <span>IDR</span>
-            </div>
+            {/* Admin entry point */}
+            <button
+              onClick={onOpenAdmin}
+              className="text-[#888888] hover:text-[#B5B5B5] transition-colors cursor-pointer text-[12px] flex items-center gap-1 ml-1 border-l border-[#3a3a3a] pl-3.5"
+              title="Portal Admin Operasional"
+            >
+              <Shield className="w-3.5 h-3.5" />
+              <span>Admin</span>
+            </button>
           </div>
 
           {/* Mobile hamburger */}
@@ -160,6 +180,16 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenListModal, onS
           </form>
 
           <button
+            onClick={() => {
+              onOpenTrackModal();
+              setMobileMenuOpen(false);
+            }}
+            className="w-full text-left px-3 py-2 text-[#F8E01A] font-semibold hover:bg-[#252525] rounded-[4px] flex items-center gap-2"
+          >
+            <Clock className="w-4 h-4 text-[#F8E01A]" />
+            Cek Status Pesanan
+          </button>
+          <button
             onClick={() => handleNavClick('browse')}
             className="w-full text-left px-3 py-2 text-white font-medium hover:bg-[#252525] rounded-[4px]"
           >
@@ -185,6 +215,16 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenListModal, onS
             className="w-full text-left px-3 py-2 text-[#B5B5B5] hover:text-white font-medium hover:bg-[#252525] rounded-[4px]"
           >
             Tanya Jawab (FAQ)
+          </button>
+          <button
+            onClick={() => {
+              onOpenAdmin();
+              setMobileMenuOpen(false);
+            }}
+            className="w-full text-left px-3 py-2 text-[#888888] hover:text-[#B5B5B5] font-medium hover:bg-[#252525] rounded-[4px] flex items-center gap-2 text-xs"
+          >
+            <Shield className="w-3.5 h-3.5" />
+            Portal Admin Operasional
           </button>
 
           <div className="pt-2 border-t border-[#333333]">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { SearchAndBrowse } from './components/SearchAndBrowse';
@@ -8,13 +8,31 @@ import { Testimonials } from './components/Testimonials';
 import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
 import { ListBikeModal } from './components/ListBikeModal';
+import { BookingTrackModal } from './components/BookingTrackModal';
+import { AdminLogin } from './components/AdminLogin';
+import { AdminDashboard } from './components/AdminDashboard';
 import { MOTORBIKES } from './data/bikes';
 import { Motorbike, BikeCategory } from './types';
 import { CheckCircle2 } from 'lucide-react';
 
 export default function App() {
+  const [pathname, setPathname] = useState<string>(() => {
+    // If visited with /#admin, redirect to /admin
+    if (window.location.hash === '#admin') {
+      window.history.replaceState({}, '', '/admin');
+      return '/admin';
+    }
+    return window.location.pathname;
+  });
+
+  const [adminToken, setAdminToken] = useState<string | null>(() => {
+    return localStorage.getItem('missionary_admin_token');
+  });
+
+  const [bikes, setBikes] = useState<Motorbike[]>(MOTORBIKES);
   const [selectedBike, setSelectedBike] = useState<Motorbike | null>(null);
   const [isListModalOpen, setIsListModalOpen] = useState(false);
+  const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
   const [searchCity, setSearchCity] = useState<string>('All');
   const [searchCategory, setSearchCategory] = useState<BikeCategory | 'All'>('All');
   const [notification, setNotification] = useState<string | null>(null);
@@ -26,8 +44,84 @@ export default function App() {
     }, 5000);
   };
 
+  // HTML5 History API popstate listener (handles back/forward browser buttons)
+  useEffect(() => {
+    const handlePopState = () => {
+      setPathname(window.location.pathname);
+    };
+
+    const handleHashChange = () => {
+      if (window.location.hash === '#admin') {
+        window.history.replaceState({}, '', '/admin');
+        setPathname('/admin');
+      } else if (window.location.hash === '#track') {
+        setIsTrackModalOpen(true);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handleHashChange);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
+  const navigateTo = (newPath: string) => {
+    window.history.pushState({}, '', newPath);
+    setPathname(newPath);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Fetch live bike inventory from backend API
+  useEffect(() => {
+    const fetchBikes = async () => {
+      try {
+        const res = await fetch('/api/bikes');
+        if (res.ok) {
+          const resJson = await res.json();
+          const bikeList = Array.isArray(resJson) ? resJson : (resJson.data || []);
+          if (Array.isArray(bikeList) && bikeList.length > 0) {
+            setBikes((prev) =>
+              prev.map((b) => {
+                const found = bikeList.find((d: any) => d.id === b.id);
+                if (found) {
+                  return {
+                    ...b,
+                    available: found.status === 'available' || found.status === 'TERSEDIA',
+                    dailyRate: found.dailyRate || b.dailyRate,
+                  };
+                }
+                return b;
+              })
+            );
+          }
+        }
+      } catch {
+        // Fallback to static MOTORBIKES
+      }
+    };
+    fetchBikes();
+  }, [pathname]);
+
+  const handleOpenAdmin = () => {
+    navigateTo('/admin');
+  };
+
+  const handleLoginSuccess = (token: string) => {
+    setAdminToken(token);
+    navigateTo('/admin');
+    showNotification('Login Admin berhasil! Selamat datang di Operasional Misionary.');
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('missionary_admin_token');
+    setAdminToken(null);
+    navigateTo('/');
+    showNotification('Anda telah keluar dari Portal Admin.');
+  };
+
   const handleHeaderSearch = (query: string) => {
-    // If the query mentions a specific area, set it
     const areas = ['Stasiun Bandung', 'Dago', 'Lembang', 'Pasteur', 'Braga', 'Ciwidey', 'Whoosh'];
     const matchedArea = areas.find((a) => query.toLowerCase().includes(a.toLowerCase()));
     if (matchedArea) {
@@ -43,6 +137,14 @@ export default function App() {
   };
 
   const handleNavigate = (sectionId: string) => {
+    if (pathname !== '/') {
+      navigateTo('/');
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+      return;
+    }
     const el = document.getElementById(sectionId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
@@ -50,13 +152,31 @@ export default function App() {
   };
 
   const handleBookingSubmitted = (summary: any) => {
-    showNotification(`Pemesanan ${summary.bike.make} ${summary.bike.model} berhasil dikirim ke Admin WhatsApp Misionary!`);
+    showNotification(
+      `Pemesanan ${summary.bike.make} ${summary.bike.model} berhasil dicatat! Simpan kode pemesanan untuk melacak status.`
+    );
   };
 
   const handleListingCreated = (listing: any) => {
-    showNotification(`Pendaftaran unit ${listing.year} ${listing.make} ${listing.model} berhasil dikirim! Admin akan segera menghubungi via WhatsApp.`);
+    showNotification(
+      `Pendaftaran unit ${listing.year} ${listing.make} ${listing.model} berhasil dikirim! Admin akan segera menghubungi via WhatsApp.`
+    );
   };
 
+  // Route: /admin
+  if (pathname === '/admin') {
+    if (adminToken) {
+      return <AdminDashboard token={adminToken} onLogout={handleLogout} />;
+    }
+    return (
+      <AdminLogin
+        onLoginSuccess={handleLoginSuccess}
+        onBack={() => navigateTo('/')}
+      />
+    );
+  }
+
+  // Route: / (Public Customer Facing Homepage)
   return (
     <div className="min-h-screen bg-white text-[#212121] flex flex-col font-sans">
       {/* Toast Notification */}
@@ -67,11 +187,13 @@ export default function App() {
         </div>
       )}
 
-      {/* Header matching screenshot */}
+      {/* Header with Search and Navigation */}
       <Header
         onNavigate={handleNavigate}
         onOpenListModal={() => setIsListModalOpen(true)}
         onSearch={handleHeaderSearch}
+        onOpenTrackModal={() => setIsTrackModalOpen(true)}
+        onOpenAdmin={handleOpenAdmin}
       />
 
       {/* Main Content: Clean, uncluttered, focused */}
@@ -84,7 +206,7 @@ export default function App() {
 
         {/* Motorcycle Catalog & Filter */}
         <SearchAndBrowse
-          bikes={MOTORBIKES}
+          bikes={bikes}
           onSelectBike={(bike) => setSelectedBike(bike)}
           initialCity={searchCity}
           initialCategory={searchCategory}
@@ -110,6 +232,8 @@ export default function App() {
           handleNavigate('browse');
         }}
         onNavigate={handleNavigate}
+        onOpenTrackModal={() => setIsTrackModalOpen(true)}
+        onOpenAdmin={handleOpenAdmin}
       />
 
       {/* Bike Detail & Booking Request Modal */}
@@ -117,6 +241,12 @@ export default function App() {
         bike={selectedBike}
         onClose={() => setSelectedBike(null)}
         onRequestSubmitted={handleBookingSubmitted}
+      />
+
+      {/* Customer Booking Tracking Modal */}
+      <BookingTrackModal
+        isOpen={isTrackModalOpen}
+        onClose={() => setIsTrackModalOpen(false)}
       />
 
       {/* List Your Motorcycle Modal */}
@@ -128,4 +258,3 @@ export default function App() {
     </div>
   );
 }
-

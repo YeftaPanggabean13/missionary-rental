@@ -5,9 +5,11 @@ import missionaryLogoWhite from '../img/missionary-horizontal-white.png';
 interface FooterProps {
   onCityClick: (city: string) => void;
   onNavigate: (sectionId: string) => void;
+  onOpenTrackModal?: () => void;
+  onOpenAdmin?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onCityClick, onNavigate }) => {
+export const Footer: React.FC<FooterProps> = ({ onCityClick, onNavigate, onOpenTrackModal, onOpenAdmin }) => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -110,6 +112,16 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onNavigate }) => {
                   Syarat e-KTP & Jaminan
                 </button>
               </li>
+              {onOpenTrackModal && (
+                <li>
+                  <button
+                    onClick={onOpenTrackModal}
+                    className="text-[#F8E01A] hover:underline transition-colors cursor-pointer text-left font-medium"
+                  >
+                    Lacak Status Pesanan Motor
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -232,10 +244,18 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onNavigate }) => {
           <div>
             © {new Date().getFullYear()} Misionary Bandung. Rental motor bersih, nyaman, dan terpercaya.
           </div>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 items-center">
             <span className="hover:text-white cursor-pointer">Ketentuan Sewa</span>
             <span className="hover:text-white cursor-pointer">Kebijakan Privasi Identitas</span>
             <span className="hover:text-white cursor-pointer">Panduan Berkendara Aman di Bandung</span>
+            {onOpenAdmin && (
+              <button
+                onClick={onOpenAdmin}
+                className="text-[#666666] hover:text-[#B5B5B5] transition-colors cursor-pointer text-xs ml-2 border-l border-[#3a3a3a] pl-3"
+              >
+                Portal Admin
+              </button>
+            )}
           </div>
         </div>
       </div>
