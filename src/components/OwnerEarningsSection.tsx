@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { DollarSign, Shield, Clock, Sliders, CheckCircle2, ArrowRight } from 'lucide-react';
+import { DollarSign, Shield, Clock, Sliders, CheckCircle2, ArrowRight, Wrench, HandCoins } from 'lucide-react';
 
 interface OwnerEarningsSectionProps {
   onOpenListModal: () => void;
 }
 
 export const OwnerEarningsSection: React.FC<OwnerEarningsSectionProps> = ({ onOpenListModal }) => {
-  const [dailyRate, setDailyRate] = useState<number>(140);
-  const [daysPerMonth, setDaysPerMonth] = useState<number>(6);
-  const [selectedBikeType, setSelectedBikeType] = useState<string>('Cruiser / Touring');
+  const [dailyRate, setDailyRate] = useState<number>(100000);
+  const [daysPerMonth, setDaysPerMonth] = useState<number>(12);
+  const [selectedBikeType, setSelectedBikeType] = useState<string>('Matic Harian (Scoopy/Fazzio)');
 
-  // PRD Commission logic: Payout = rental fee - 20% commission
+  // Localized profit sharing: 70% owner net, 30% Misionary (covers maintenance, regular wash, oil change, marketing)
   const grossMonthly = dailyRate * daysPerMonth;
-  const platformFee = Math.round(grossMonthly * 0.20);
-  const netMonthlyPayout = grossMonthly - platformFee;
+  const operationalFee = Math.round(grossMonthly * 0.30);
+  const netMonthlyPayout = grossMonthly - operationalFee;
   const estimatedAnnualNet = netMonthlyPayout * 12;
 
   const handleBikePreset = (presetType: string, rate: number, days: number) => {
@@ -29,15 +29,15 @@ export const OwnerEarningsSection: React.FC<OwnerEarningsSectionProps> = ({ onOp
           {/* Left Column: Straightforward Brand Copy */}
           <div className="lg:col-span-6 space-y-6">
             <div className="inline-flex items-center gap-2 bg-[#2d2d2d] border border-[#444444] px-3 py-1 rounded-[3px] text-[12px] uppercase tracking-wider text-[#A0844B] font-semibold">
-              Owner Earnings & Net Payout Calculator
+              Kemitraan Titip Motor Misionary Bandung
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight leading-tight">
-              List Your Motorcycle For Rent & Earn Money Today
+              Punya Motor Jarang Dipakai? Dapatkan Pasif Income Tiap Bulan
             </h2>
 
             <p className="text-[16px] text-[#E0E0E0] leading-relaxed">
-              Listing your motorcycle is easy and only takes around 5 minutes. You choose the price. Too many rentals? Increase it. Too few? Decrease it.
+              Daripada motor menganggur di kos atau rumah dan berdebu, titipkan armada Anda di Misionary Bandung. Motor terawat, dicuci bersih, diservis berkala, dan menghasilkan uang sewa bulanan langsung ke rekening Anda.
             </p>
 
             {/* Direct owner guarantees */}
@@ -48,10 +48,10 @@ export const OwnerEarningsSection: React.FC<OwnerEarningsSectionProps> = ({ onOp
                 </div>
                 <div>
                   <strong className="text-white text-[14px] block font-semibold">
-                    $1,000,000 Liability & Physical Damage Coverage
+                    Perawatan Rutin & Servis Berkala Terjamin
                   </strong>
                   <span className="text-[13px] text-[#B5B5B5]">
-                    Your motorcycle is fully covered under our master insurance policy during every active rental.
+                    Misionary bertanggung jawab atas cuci rutin, penggantian oli berkala, serta pengecekan kelayakan jalan setiap unit.
                   </span>
                 </div>
               </div>
@@ -62,10 +62,10 @@ export const OwnerEarningsSection: React.FC<OwnerEarningsSectionProps> = ({ onOp
                 </div>
                 <div>
                   <strong className="text-white text-[14px] block font-semibold">
-                    Renter Pre-Authorized Security Deposit
+                    Verifikasi Identitas Penyewa Ketat
                   </strong>
                   <span className="text-[13px] text-[#B5B5B5]">
-                    We hold a card pre-authorization on the rider before pickup to cover incidentals or damages.
+                    Setiap penyewa wajib menahan e-KTP asli, SIM C aktif, dan tiket kedatangan/voucher hotel. Motor aman dan terpantau.
                   </span>
                 </div>
               </div>
@@ -76,10 +76,10 @@ export const OwnerEarningsSection: React.FC<OwnerEarningsSectionProps> = ({ onOp
                 </div>
                 <div>
                   <strong className="text-white text-[14px] block font-semibold">
-                    You Approve Every Request
+                    Laporan Transparan & Pencairan Tepat Waktu
                   </strong>
                   <span className="text-[13px] text-[#B5B5B5]">
-                    No forced instant bookings. Review rider profiles, history, and message them before saying yes.
+                    Rekapitulasi tanggal sewa tercatat rapi. Pembagian hasil bulanan ditransfer tepat waktu setiap awal bulan.
                   </span>
                 </div>
               </div>
@@ -91,21 +91,21 @@ export const OwnerEarningsSection: React.FC<OwnerEarningsSectionProps> = ({ onOp
                 className="bg-[#A0844B] hover:bg-[#8f743f] text-white text-[14px] font-semibold px-6 py-3.5 rounded-[4px] transition-colors inline-flex items-center gap-2 cursor-pointer shadow-md"
                 id="earnings-list-cta"
               >
-                List Your Bike in ~5 Minutes
+                Daftarkan Motor Anda Sekarang
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </div>
 
-          {/* Right Column: Interactive Net Earnings Calculator (PRD Screen 6) */}
+          {/* Right Column: Interactive Net Earnings Calculator */}
           <div className="lg:col-span-6 bg-white text-[#212121] rounded-[6px] p-6 sm:p-8 shadow-xl border border-gray-200">
             <div className="flex items-center justify-between pb-4 border-b border-gray-200 mb-6">
               <div>
                 <h3 className="text-[18px] font-bold text-[#212121]">
-                  Estimate Your Net Take-Home
+                  Simulasi Bagi Hasil Bulanan
                 </h3>
                 <p className="text-[13px] text-[#555555]">
-                  Calculated using transparent 80% owner payout (20% platform & insurance fee).
+                  Estimasi pendapatan bersih pemilik unit motor (70% pemilik / 30% operasional Misionary).
                 </p>
               </div>
             </div>
@@ -113,71 +113,71 @@ export const OwnerEarningsSection: React.FC<OwnerEarningsSectionProps> = ({ onOp
             {/* Quick preset selector */}
             <div className="mb-6">
               <label className="block text-[12px] font-semibold text-[#555555] uppercase tracking-wider mb-2">
-                Sample Motorcycle Archetypes:
+                Pilih Tipe Motor Anda:
               </label>
               <div className="grid grid-cols-3 gap-2 text-[12px]">
                 <button
                   type="button"
-                  onClick={() => handleBikePreset('Adventure / Dual', 165, 7)}
+                  onClick={() => handleBikePreset('Matic Harian (Scoopy/Fazzio)', 95000, 15)}
                   className={`py-2 px-2 text-center rounded-[3px] border cursor-pointer ${
-                    selectedBikeType === 'Adventure / Dual'
+                    selectedBikeType === 'Matic Harian (Scoopy/Fazzio)'
                       ? 'bg-[#212121] text-white border-[#212121]'
                       : 'bg-[#F0F2F4] text-[#555555] border-gray-300 hover:bg-gray-200'
                   }`}
                 >
-                  Adventure (GS/Tiger)
-                  <span className="block text-[11px] opacity-80">$165/day</span>
+                  Matic Harian
+                  <span className="block text-[11px] opacity-80">Rp 95.000/hari</span>
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleBikePreset('Cruiser / Touring', 150, 6)}
+                  onClick={() => handleBikePreset('Maxi Scooter (NMAX/PCX)', 140000, 14)}
                   className={`py-2 px-2 text-center rounded-[3px] border cursor-pointer ${
-                    selectedBikeType === 'Cruiser / Touring'
+                    selectedBikeType === 'Maxi Scooter (NMAX/PCX)'
                       ? 'bg-[#212121] text-white border-[#212121]'
                       : 'bg-[#F0F2F4] text-[#555555] border-gray-300 hover:bg-gray-200'
                   }`}
                 >
-                  Cruiser (Harley/Indian)
-                  <span className="block text-[11px] opacity-80">$150/day</span>
+                  Maxi Scooter
+                  <span className="block text-[11px] opacity-80">Rp 140.000/hari</span>
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleBikePreset('Classic / Sport', 125, 5)}
+                  onClick={() => handleBikePreset('Retro Vespa / Trail', 240000, 10)}
                   className={`py-2 px-2 text-center rounded-[3px] border cursor-pointer ${
-                    selectedBikeType === 'Classic / Sport'
+                    selectedBikeType === 'Retro Vespa / Trail'
                       ? 'bg-[#212121] text-white border-[#212121]'
                       : 'bg-[#F0F2F4] text-[#555555] border-gray-300 hover:bg-gray-200'
                   }`}
                 >
-                  Classic (Bonneville)
-                  <span className="block text-[11px] opacity-80">$125/day</span>
+                  Vespa / Trail
+                  <span className="block text-[11px] opacity-80">Rp 240.000/hari</span>
                 </button>
               </div>
             </div>
 
-            {/* Slider 1: Daily Rental Rate */}
+            {/* Slider 1: Daily Rental Rate in IDR */}
             <div className="space-y-2 mb-6">
               <div className="flex justify-between items-baseline">
                 <span className="text-[13px] font-semibold text-[#555555]">
-                  Your Daily Rental Rate:
+                  Tarif Sewa Harian Motor:
                 </span>
                 <span className="text-xl font-bold text-[#212121]">
-                  ${dailyRate} <span className="text-sm font-normal text-[#888888]">/ day</span>
+                  Rp {dailyRate.toLocaleString('id-ID')} <span className="text-sm font-normal text-[#888888]">/ hari</span>
                 </span>
               </div>
               <input
                 type="range"
-                min="75"
-                max="250"
-                step="5"
+                min="80000"
+                max="260000"
+                step="5000"
                 value={dailyRate}
                 onChange={(e) => setDailyRate(Number(e.target.value))}
                 className="w-full accent-[#A0844B] cursor-pointer"
               />
               <div className="flex justify-between text-[11px] text-[#888888]">
-                <span>$75/day (Standard)</span>
-                <span>$150/day (Average)</span>
-                <span>$250/day (Touring)</span>
+                <span>Rp 80.000 (Matic)</span>
+                <span>Rp 140.000 (Maxi)</span>
+                <span>Rp 260.000 (Vespa)</span>
               </div>
             </div>
 
@@ -185,48 +185,48 @@ export const OwnerEarningsSection: React.FC<OwnerEarningsSectionProps> = ({ onOp
             <div className="space-y-2 mb-8">
               <div className="flex justify-between items-baseline">
                 <span className="text-[13px] font-semibold text-[#555555]">
-                  Days Rented Per Month:
+                  Hari Tersewa per Bulan:
                 </span>
                 <span className="text-xl font-bold text-[#212121]">
-                  {daysPerMonth} <span className="text-sm font-normal text-[#888888]">days/mo</span>
+                  {daysPerMonth} <span className="text-sm font-normal text-[#888888]">hari / bulan</span>
                 </span>
               </div>
               <input
                 type="range"
-                min="2"
-                max="20"
+                min="4"
+                max="24"
                 step="1"
                 value={daysPerMonth}
                 onChange={(e) => setDaysPerMonth(Number(e.target.value))}
                 className="w-full accent-[#A0844B] cursor-pointer"
               />
               <div className="flex justify-between text-[11px] text-[#888888]">
-                <span>2 days (1 weekend)</span>
-                <span>6 days (2 weekends)</span>
-                <span>15+ days</span>
+                <span>4 hari (Weekend saja)</span>
+                <span>12 hari (Rata-rata)</span>
+                <span>20+ hari (Musim Liburan)</span>
               </div>
             </div>
 
-            {/* Net Payout Box (PRD user story: see net earnings after commission upfront) */}
+            {/* Net Payout Box */}
             <div className="bg-[#F0F2F4] border border-gray-300 rounded-[4px] p-4 mb-6 space-y-2 text-[13px]">
               <div className="flex justify-between text-[#555555]">
-                <span>Gross Rental Bookings:</span>
-                <span className="font-semibold text-[#212121]">${grossMonthly} / month</span>
+                <span>Estimasi Omzet Kotor Bulanan:</span>
+                <span className="font-semibold text-[#212121]">Rp {grossMonthly.toLocaleString('id-ID')}</span>
               </div>
               <div className="flex justify-between text-[#555555]">
-                <span>Twisted Road Commission (20%):</span>
-                <span className="text-rose-700 font-medium">-${platformFee} (includes insurance & processing)</span>
+                <span>Biaya Operasional & Servis (30%):</span>
+                <span className="text-rose-700 font-medium">-Rp {operationalFee.toLocaleString('id-ID')} (termasuk cuci & ganti oli)</span>
               </div>
               <div className="flex justify-between items-baseline pt-2 border-t border-gray-300">
                 <span className="text-[15px] font-bold text-[#212121]">
-                  Your Net Monthly Payout:
+                  Penghasilan Bersih Pemilik Motor:
                 </span>
                 <span className="text-2xl font-bold text-[#A0844B]">
-                  ${netMonthlyPayout}
+                  Rp {netMonthlyPayout.toLocaleString('id-ID')}
                 </span>
               </div>
               <div className="text-[11px] text-[#888888] pt-1">
-                Estimated Annual Net Payout: <strong className="text-[#212121]">${estimatedAnnualNet.toLocaleString()} / year</strong>
+                Estimasi Pasif Income 1 Tahun: <strong className="text-[#212121]">Rp {estimatedAnnualNet.toLocaleString('id-ID')} / tahun</strong>
               </div>
             </div>
 
@@ -234,7 +234,7 @@ export const OwnerEarningsSection: React.FC<OwnerEarningsSectionProps> = ({ onOp
               onClick={onOpenListModal}
               className="w-full bg-[#212121] hover:bg-[#333333] text-white font-semibold text-[14px] py-3 rounded-[4px] transition-colors cursor-pointer"
             >
-              Start Your Free Listing
+              Ajukan Titip Motor (Konsultasi Gratis)
             </button>
           </div>
         </div>
@@ -242,3 +242,4 @@ export const OwnerEarningsSection: React.FC<OwnerEarningsSectionProps> = ({ onOp
     </section>
   );
 };
+

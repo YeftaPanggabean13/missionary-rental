@@ -1,6 +1,6 @@
 {
-  "name": "Twisted Road - Motorcycle Rental Marketplace",
-  "description": "Rent real motorcycles from verified local owners with transparent pricing, pre-authorized security deposits, and handover inspection protection.",
+  "name": "Misionary - Rental Motor Bandung",
+  "description": "Layanan sewa motor harian & mingguan terpercaya di Bandung. Unit bersih terawat, gratis 2 helm SNI, jas hujan, bensin awal, dan antar-jemput stasiun/hotel.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

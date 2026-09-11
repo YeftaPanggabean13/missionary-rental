@@ -12,19 +12,19 @@ export const ListBikeModal: React.FC<ListBikeModalProps> = ({ isOpen, onClose, o
   if (!isOpen) return null;
 
   const [year, setYear] = useState('2023');
-  const [make, setMake] = useState('Harley-Davidson');
-  const [model, setModel] = useState('Low Rider S');
-  const [category, setCategory] = useState<BikeCategory>('Cruiser');
-  const [city, setCity] = useState('Denver');
-  const [state, setState] = useState('CO');
-  const [dailyRate, setDailyRate] = useState(145);
-  const [ownerName, setOwnerName] = useState('John Miller');
-  const [ownerEmail, setOwnerEmail] = useState('john.m@example.com');
+  const [make, setMake] = useState('Honda');
+  const [model, setModel] = useState('Vario 160 CBS');
+  const [plateNumber, setPlateNumber] = useState('D 4521 MIS');
+  const [category, setCategory] = useState<BikeCategory>('Matic Harian');
+  const [area, setArea] = useState('Dago & Dipatiukur');
+  const [dailyRate, setDailyRate] = useState(120000);
+  const [ownerName, setOwnerName] = useState('Kang Rian');
+  const [ownerPhone, setOwnerPhone] = useState('0812-9876-5432');
   const [photoUploaded, setPhotoUploaded] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  // 80% net payout
-  const netDaily = Math.round(dailyRate * 0.80);
+  // 70% net payout to owner
+  const netDaily = Math.round(dailyRate * 0.70);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,12 +34,13 @@ export const ListBikeModal: React.FC<ListBikeModalProps> = ({ isOpen, onClose, o
         year,
         make,
         model,
+        plateNumber,
         category,
-        city,
-        state,
+        area,
         dailyRate,
         netDaily,
-        ownerName
+        ownerName,
+        ownerPhone
       });
     }
   };
@@ -51,10 +52,10 @@ export const ListBikeModal: React.FC<ListBikeModalProps> = ({ isOpen, onClose, o
         <div className="bg-[#212121] text-white px-5 py-4 flex items-center justify-between border-b border-[#333333]">
           <div>
             <div className="text-[11px] uppercase tracking-wider text-[#A0844B] font-bold">
-              Owner Onboarding · Takes ~5 Minutes
+              Kemitraan Titip Motor Bandung · Tanpa Biaya Pendaftaran
             </div>
             <h3 className="text-lg font-bold text-white">
-              List Your Motorcycle & Start Earning
+              Daftarkan Motor Anda & Dapatkan Pasif Income
             </h3>
           </div>
           <button
@@ -73,48 +74,54 @@ export const ListBikeModal: React.FC<ListBikeModalProps> = ({ isOpen, onClose, o
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <h4 className="text-2xl font-bold text-[#212121] mb-2">
-                Listing Submitted for Verification!
+                Pendaftaran Kemitraan Berhasil Dikirim!
               </h4>
               <p className="text-[14px] text-[#555555] mb-6 max-w-md mx-auto leading-relaxed">
-                Your <strong>{year} {make} {model}</strong> is being reviewed by our trust team. You will receive booking requests at <strong>${dailyRate}/day (${netDaily} net to your bank account)</strong>.
+                Unit <strong>{year} {make} {model}</strong> ({plateNumber}) Anda segera kami verifikasi. Admin Misionary akan menghubungi via WhatsApp <strong>{ownerPhone}</strong> untuk jadwal inspeksi fisik unit di Bandung.
               </p>
 
               <div className="bg-[#F0F2F4] p-4 rounded-[4px] text-left text-[13px] space-y-1.5 max-w-md mx-auto mb-6">
                 <div className="flex justify-between">
-                  <span className="text-[#555555]">Host:</span>
+                  <span className="text-[#555555]">Nama Mitra:</span>
                   <span className="font-semibold text-[#212121]">{ownerName}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#555555]">Location:</span>
-                  <span className="font-semibold text-[#212121]">{city}, {state}</span>
+                  <span className="text-[#555555]">Domisili Bandung:</span>
+                  <span className="font-semibold text-[#212121]">{area}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#555555]">Insurance:</span>
-                  <span className="text-emerald-700 font-semibold">$1,000,000 Master Policy Active</span>
+                  <span className="text-[#555555]">Tarif Sewa Harian:</span>
+                  <span className="font-semibold text-[#212121]">Rp {dailyRate.toLocaleString('id-ID')}/hari</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[#555555]">Bagi Hasil Bersih (70%):</span>
+                  <span className="text-emerald-700 font-bold">Rp {netDaily.toLocaleString('id-ID')}/hari tersewa</span>
                 </div>
               </div>
 
               <button
                 onClick={onClose}
-                className="bg-[#A0844B] text-white px-6 py-2.5 rounded-[4px] text-[13px] font-semibold hover:bg-[#8e733e]"
+                className="bg-[#A0844B] text-white px-6 py-2.5 rounded-[4px] text-[13px] font-semibold hover:bg-[#8e733e] cursor-pointer"
               >
-                Done
+                Tutup & Selesai
               </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <p className="text-[13px] text-[#555555]">
-                "Listing your motorcycle is easy and only takes around 5 minutes. You choose the price."
+                Punya motor yang jarang terpakai di Bandung? Daripada menganggur di garasi, titipkan ke Misionary. Kami merawat, mencuci, dan menyewakan ke wisatawan terverifikasi dengan sistem bagi hasil 70:30.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-[11px] font-bold uppercase tracking-wider text-[#555555] mb-1">
-                    Year
+                    Tahun Pembuatan
                   </label>
                   <input
                     type="number"
                     required
+                    min="2018"
+                    max="2025"
                     value={year}
                     onChange={(e) => setYear(e.target.value)}
                     className="w-full bg-[#F0F2F4] border border-gray-300 rounded-[3px] px-3 py-2 text-[14px] text-[#212121]"
@@ -122,70 +129,79 @@ export const ListBikeModal: React.FC<ListBikeModalProps> = ({ isOpen, onClose, o
                 </div>
                 <div>
                   <label className="block text-[11px] font-bold uppercase tracking-wider text-[#555555] mb-1">
-                    Make
+                    Merk Motor
                   </label>
-                  <input
-                    type="text"
-                    required
+                  <select
                     value={make}
                     onChange={(e) => setMake(e.target.value)}
                     className="w-full bg-[#F0F2F4] border border-gray-300 rounded-[3px] px-3 py-2 text-[14px] text-[#212121]"
-                  />
+                  >
+                    <option value="Honda">Honda</option>
+                    <option value="Yamaha">Yamaha</option>
+                    <option value="Vespa">Vespa</option>
+                    <option value="Suzuki">Suzuki</option>
+                    <option value="Kawasaki">Kawasaki</option>
+                  </select>
                 </div>
                 <div>
                   <label className="block text-[11px] font-bold uppercase tracking-wider text-[#555555] mb-1">
-                    Model
+                    Tipe / Model
                   </label>
                   <input
                     type="text"
                     required
                     value={model}
                     onChange={(e) => setModel(e.target.value)}
+                    placeholder="Contoh: Scoopy / NMAX"
                     className="w-full bg-[#F0F2F4] border border-gray-300 rounded-[3px] px-3 py-2 text-[14px] text-[#212121]"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-[11px] font-bold uppercase tracking-wider text-[#555555] mb-1">
-                    Motorcycle Category
+                    Kategori Armada
                   </label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value as BikeCategory)}
                     className="w-full bg-[#F0F2F4] border border-gray-300 rounded-[3px] px-3 py-2 text-[14px] text-[#212121]"
                   >
-                    <option value="Cruiser">Cruiser</option>
-                    <option value="Adventure">Adventure / Dual-Sport</option>
-                    <option value="Classic / Vintage">Classic / Vintage</option>
-                    <option value="Sport">Sport / Standard</option>
-                    <option value="Touring">Touring</option>
+                    <option value="Matic Harian">Matic Harian</option>
+                    <option value="Maxi Scooter">Maxi Scooter</option>
+                    <option value="Retro & Estetik">Retro & Estetik</option>
+                    <option value="Adventure & Trail">Adventure & Trail</option>
+                    <option value="Sport & Heritage">Sport & Heritage</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-[11px] font-bold uppercase tracking-wider text-[#555555] mb-1">
-                    City, State
+                    Nomor Pelat (Bandung)
                   </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <input
-                      type="text"
-                      required
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      placeholder="City"
-                      className="bg-[#F0F2F4] border border-gray-300 rounded-[3px] px-3 py-2 text-[14px] text-[#212121]"
-                    />
-                    <input
-                      type="text"
-                      required
-                      value={state}
-                      onChange={(e) => setState(e.target.value)}
-                      placeholder="State (e.g. CO)"
-                      className="bg-[#F0F2F4] border border-gray-300 rounded-[3px] px-3 py-2 text-[14px] text-[#212121]"
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    required
+                    value={plateNumber}
+                    onChange={(e) => setPlateNumber(e.target.value)}
+                    placeholder="Contoh: D 1234 ABC"
+                    className="w-full bg-[#F0F2F4] border border-gray-300 rounded-[3px] px-3 py-2 text-[14px] text-[#212121]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#555555] mb-1">
+                    Area Domisili Bandung
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={area}
+                    onChange={(e) => setArea(e.target.value)}
+                    placeholder="Dago / Buah Batu / Pasteur"
+                    className="w-full bg-[#F0F2F4] border border-gray-300 rounded-[3px] px-3 py-2 text-[14px] text-[#212121]"
+                  />
                 </div>
               </div>
 
@@ -193,30 +209,30 @@ export const ListBikeModal: React.FC<ListBikeModalProps> = ({ isOpen, onClose, o
               <div className="bg-[#F0F2F4] border border-gray-300 p-4 rounded-[4px]">
                 <div className="flex items-center justify-between mb-2">
                   <label className="text-[12px] font-bold text-[#212121]">
-                    Daily Rental Rate: ${dailyRate} / day
+                    Rencana Tarif Sewa: Rp {dailyRate.toLocaleString('id-ID')} / hari
                   </label>
                   <span className="text-[12px] text-emerald-800 font-bold">
-                    You Earn: ${netDaily} / day net (80%)
+                    Hak Bersih Anda (70%): Rp {netDaily.toLocaleString('id-ID')} / hari
                   </span>
                 </div>
                 <input
                   type="range"
-                  min="80"
-                  max="250"
-                  step="5"
+                  min="80000"
+                  max="260000"
+                  step="5000"
                   value={dailyRate}
                   onChange={(e) => setDailyRate(Number(e.target.value))}
                   className="w-full accent-[#A0844B] cursor-pointer"
                 />
                 <span className="text-[11px] text-[#888888] block mt-1">
-                  Twisted Road's 20% commission covers $1M liability insurance, credit card processing, and rider screening.
+                  Alokasi 30% Misionary mencakup: ganti oli rutin, cuci steam, kampas rem, operasional antar-jemput stasiun, dan penanganan penyewa.
                 </span>
               </div>
 
               {/* Photo Upload Simulation */}
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-[#555555] mb-1">
-                  Photos (Right side, Left side, Front)
+                  Foto Motor (Tampak Samping Kanan, Kiri & Depan)
                 </label>
                 <button
                   type="button"
@@ -229,33 +245,39 @@ export const ListBikeModal: React.FC<ListBikeModalProps> = ({ isOpen, onClose, o
                 >
                   <Camera className="w-6 h-6 mx-auto mb-1 text-[#A0844B]" />
                   <span className="text-[13px] font-semibold block">
-                    {photoUploaded ? '✓ 4 Motorcycle Photos Attached' : 'Click to Upload Motorcycle Photos'}
+                    {photoUploaded ? '✓ 3 Foto Motor Terlampir' : 'Klik untuk Unggah Foto Motor Anda'}
                   </span>
                   <span className="text-[11px] text-[#888888]">
-                    Natural sunlight, clean bike, clear profile shots
+                    Pastikan kondisi motor bersih dan pelat nomor terlihat jelas
                   </span>
                 </button>
               </div>
 
               {/* Owner Info */}
-              <div className="grid grid-cols-2 gap-3 pt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                 <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#555555] mb-1">
+                    Nama Lengkap Pemilik
+                  </label>
                   <input
                     type="text"
                     required
                     value={ownerName}
                     onChange={(e) => setOwnerName(e.target.value)}
-                    placeholder="Your Full Name"
+                    placeholder="Nama Lengkap sesuai KTP"
                     className="w-full bg-[#F0F2F4] border border-gray-300 rounded-[3px] px-3 py-2 text-[13px] text-[#212121]"
                   />
                 </div>
                 <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#555555] mb-1">
+                    Nomor WhatsApp Aktif
+                  </label>
                   <input
-                    type="email"
+                    type="text"
                     required
-                    value={ownerEmail}
-                    onChange={(e) => setOwnerEmail(e.target.value)}
-                    placeholder="Your Email Address"
+                    value={ownerPhone}
+                    onChange={(e) => setOwnerPhone(e.target.value)}
+                    placeholder="Contoh: 0812-XXXX-XXXX"
                     className="w-full bg-[#F0F2F4] border border-gray-300 rounded-[3px] px-3 py-2 text-[13px] text-[#212121]"
                   />
                 </div>
@@ -266,7 +288,7 @@ export const ListBikeModal: React.FC<ListBikeModalProps> = ({ isOpen, onClose, o
                   type="submit"
                   className="w-full bg-[#A0844B] hover:bg-[#8e743e] text-white font-bold py-3 rounded-[4px] text-[14px] transition-colors cursor-pointer shadow-sm"
                 >
-                  Publish Free Listing
+                  Kirim Pendaftaran Kemitraan
                 </button>
               </div>
             </form>
@@ -276,3 +298,4 @@ export const ListBikeModal: React.FC<ListBikeModalProps> = ({ isOpen, onClose, o
     </div>
   );
 };
+

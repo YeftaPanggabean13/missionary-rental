@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Camera, CreditCard, UserCheck, Wrench, Clock } from 'lucide-react';
+import { ShieldCheck, Sparkles, MapPin, CheckCircle2, Wrench, PackageCheck, FileText } from 'lucide-react';
 
 export const TrustStatsBanner: React.FC = () => {
   return (
@@ -9,14 +9,14 @@ export const TrustStatsBanner: React.FC = () => {
           {/* Pillar 1 */}
           <div className="flex items-start gap-3.5 p-3 rounded-[4px]">
             <div className="p-2.5 bg-[#F0F2F4] text-[#A0844B] rounded-[4px] shrink-0">
-              <ShieldCheck className="w-5 h-5" />
+              <Wrench className="w-5 h-5" />
             </div>
             <div>
               <h3 className="text-[15px] font-bold text-[#212121] mb-1">
-                $1,000,000 Liability
+                Unit Bersih & Servis Rutin
               </h3>
               <p className="text-[13px] text-[#555555] leading-snug">
-                Every rental includes state liability coverage plus physical collision and damage protection.
+                Rutin servis berkala bengkel resmi. Ban tebal, rem pakem, dan mesin bertenaga siap nanjak Lembang & Ciwidey.
               </p>
             </div>
           </div>
@@ -24,14 +24,14 @@ export const TrustStatsBanner: React.FC = () => {
           {/* Pillar 2 */}
           <div className="flex items-start gap-3.5 p-3 rounded-[4px]">
             <div className="p-2.5 bg-[#F0F2F4] text-[#A0844B] rounded-[4px] shrink-0">
-              <CreditCard className="w-5 h-5" />
+              <PackageCheck className="w-5 h-5" />
             </div>
             <div>
               <h3 className="text-[15px] font-bold text-[#212121] mb-1">
-                Pre-Authorized Deposits
+                Fasilitas Lengkap & Bersih
               </h3>
               <p className="text-[13px] text-[#555555] leading-snug">
-                Security deposit is a temporary card hold, not a charge. Released within 48h of return.
+                Termasuk 2 helm SNI bersih & wangi, 2 jas hujan setelan tebal, phone holder di stang, dan bensin awal.
               </p>
             </div>
           </div>
@@ -39,14 +39,14 @@ export const TrustStatsBanner: React.FC = () => {
           {/* Pillar 3 */}
           <div className="flex items-start gap-3.5 p-3 rounded-[4px]">
             <div className="p-2.5 bg-[#F0F2F4] text-[#A0844B] rounded-[4px] shrink-0">
-              <Camera className="w-5 h-5" />
+              <MapPin className="w-5 h-5" />
             </div>
             <div>
               <h3 className="text-[15px] font-bold text-[#212121] mb-1">
-                Mandatory Photo Inspection
+                Antar-Jemput Fleksibel
               </h3>
               <p className="text-[13px] text-[#555555] leading-snug">
-                4-point photo check before takeoff protects both parties from pre-existing blemishes.
+                Unit diantar tepat waktu ke Stasiun Bandung (Pintu Utara/Selatan), Stasiun Whoosh, atau Hotel tempat Anda menginap.
               </p>
             </div>
           </div>
@@ -54,14 +54,14 @@ export const TrustStatsBanner: React.FC = () => {
           {/* Pillar 4 */}
           <div className="flex items-start gap-3.5 p-3 rounded-[4px]">
             <div className="p-2.5 bg-[#F0F2F4] text-[#A0844B] rounded-[4px] shrink-0">
-              <UserCheck className="w-5 h-5" />
+              <FileText className="w-5 h-5" />
             </div>
             <div>
               <h3 className="text-[15px] font-bold text-[#212121] mb-1">
-                Verified Riders & Owners
+                Syarat Mudah & Transparan
               </h3>
               <p className="text-[13px] text-[#555555] leading-snug">
-                Direct peer verification, motorcycle license endorsement screening, and MVR background checks.
+                Cukup e-KTP dan SIM C yang valid. Tanpa uang jaminan jutaan rupiah, surat STNK asli resmi berpelat D Bandung.
               </p>
             </div>
           </div>
@@ -70,3 +70,5 @@ export const TrustStatsBanner: React.FC = () => {
     </section>
   );
 };
+
+

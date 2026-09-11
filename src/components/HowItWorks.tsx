@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, CalendarCheck, Camera, KeyRound, DollarSign, ShieldAlert, ArrowRight } from 'lucide-react';
+import { Search, CalendarCheck, CheckCircle2, KeyRound, DollarSign, ShieldCheck, ArrowRight, Shield } from 'lucide-react';
 
 interface HowItWorksProps {
   onRentClick: () => void;
@@ -15,13 +15,13 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onRentClick, onListClick
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-gray-200 gap-4">
           <div>
             <div className="text-[12px] font-bold uppercase tracking-wider text-[#A0844B] mb-1">
-              Marketplace Mechanics
+              Cara Kerja Praktis
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#212121] tracking-tight">
-              How Twisted Road Works
+              3 Langkah Mudah Sewa Motor di Bandung
             </h2>
             <p className="text-[14px] text-[#555555] mt-1 max-w-xl">
-              Straightforward peer-to-peer motorcycle rentals. No counter lines, no corporate upsells, and verified protection every mile.
+              Tanpa antre di konter, tanpa syarat uang jaminan tunai jutaan rupiah. Unit motor diantar langsung ke Stasiun Bandung atau hotel Anda.
             </p>
           </div>
 
@@ -35,7 +35,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onRentClick, onListClick
                   : 'text-[#555555] hover:text-[#212121]'
               }`}
             >
-              For Riders (Renters)
+              Untuk Wisatawan (Penyewa)
             </button>
             <button
               onClick={() => setActiveAudience('owner')}
@@ -45,7 +45,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onRentClick, onListClick
                   : 'text-[#555555] hover:text-[#212121]'
               }`}
             >
-              For Motorcycle Owners
+              Untuk Warga Bandung (Titip Motor)
             </button>
           </div>
         </div>
@@ -57,20 +57,20 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onRentClick, onListClick
             <div className="p-6 bg-[#F0F2F4] rounded-[4px] border border-gray-200 flex flex-col justify-between">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#A0844B] block mb-2">
-                  Step 01
+                  Langkah 01
                 </span>
                 <div className="w-10 h-10 bg-white text-[#212121] rounded-[3px] flex items-center justify-center mb-4 border border-gray-200">
                   <Search className="w-5 h-5 text-[#A0844B]" />
                 </div>
                 <h3 className="text-[18px] font-bold text-[#212121] mb-2">
-                  Browse Authentic Machines
+                  Pilih Motor & Tentukan Jadwal
                 </h3>
                 <p className="text-[14px] text-[#555555] leading-relaxed">
-                  Search by city, dates, and style. Compare real motorcycle photos, technical specs, and verified owner ratings with transparent pricing.
+                  Pilih motor sesuai selera (matic lincah, maxi nyaman, atau retro Vespa). Tentukan jam tiba di Bandung dan lokasi pengantaran (Stasiun Bandung, Whoosh, atau Hotel).
                 </p>
               </div>
               <div className="pt-4 mt-4 border-t border-gray-300 text-[12px] text-[#888888]">
-                Clear daily rates & pre-authorized deposit visible upfront.
+                Tarif jelas mulai Rp 95.000/hari, gratis 2 helm & 2 jas hujan setelan.
               </div>
             </div>
 
@@ -78,20 +78,20 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onRentClick, onListClick
             <div className="p-6 bg-[#F0F2F4] rounded-[4px] border border-gray-200 flex flex-col justify-between">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#A0844B] block mb-2">
-                  Step 02
+                  Langkah 02
                 </span>
                 <div className="w-10 h-10 bg-white text-[#212121] rounded-[3px] flex items-center justify-center mb-4 border border-gray-200">
                   <CalendarCheck className="w-5 h-5 text-[#A0844B]" />
                 </div>
                 <h3 className="text-[18px] font-bold text-[#212121] mb-2">
-                  Request to Book
+                  Verifikasi Cepat via WhatsApp
                 </h3>
                 <p className="text-[14px] text-[#555555] leading-relaxed">
-                  Submit your trip dates and motorcycle license details. The owner reviews and confirms within 24 hours. Your card is not charged until approved.
+                  Kirimkan foto e-KTP, SIM C, dan bukti tiket kereta/hotel ke WhatsApp admin kami. Verifikasi ramah dan cepat selesai dalam waktu kurang dari 15 menit.
                 </p>
               </div>
               <div className="pt-4 mt-4 border-t border-gray-300 text-[12px] text-[#888888]">
-                Select standard or premium comprehensive coverage.
+                Tanpa deposit jutaan rupiah, cukup e-KTP fisik asli saat serah terima.
               </div>
             </div>
 
@@ -99,20 +99,20 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onRentClick, onListClick
             <div className="p-6 bg-[#F0F2F4] rounded-[4px] border border-gray-200 flex flex-col justify-between">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#A0844B] block mb-2">
-                  Step 03
+                  Langkah 03
                 </span>
                 <div className="w-10 h-10 bg-white text-[#212121] rounded-[3px] flex items-center justify-center mb-4 border border-gray-200">
-                  <Camera className="w-5 h-5 text-[#A0844B]" />
+                  <KeyRound className="w-5 h-5 text-[#A0844B]" />
                 </div>
                 <h3 className="text-[18px] font-bold text-[#212121] mb-2">
-                  Photo Inspection & Ride
+                  Serah Terima & Siap Eksplor
                 </h3>
                 <p className="text-[14px] text-[#555555] leading-relaxed">
-                  Meet the owner for a 5-minute handover inspection (photos, fuel, mileage). Confirm on your phone, grab the keys, and explore the open highway.
+                  Crew Misionary mengantarkan motor tepat waktu. Cek kondisi bodi & bensin bersama 3 menit, terima STNK resmi, dan langsung jelajahi Bandung dengan bebas!
                 </p>
               </div>
               <div className="pt-4 mt-4 border-t border-gray-300 text-[12px] text-[#888888]">
-                Deposit hold auto-released within 48h after return.
+                Bensin awal siap jalan, phone holder stang terpasang untuk Google Maps.
               </div>
             </div>
           </div>
@@ -122,20 +122,20 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onRentClick, onListClick
             <div className="p-6 bg-[#F0F2F4] rounded-[4px] border border-gray-200 flex flex-col justify-between">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#A0844B] block mb-2">
-                  Step 01
+                  Langkah 01
                 </span>
                 <div className="w-10 h-10 bg-white text-[#212121] rounded-[3px] flex items-center justify-center mb-4 border border-gray-200">
                   <KeyRound className="w-5 h-5 text-[#A0844B]" />
                 </div>
                 <h3 className="text-[18px] font-bold text-[#212121] mb-2">
-                  List Your Bike in ~5 Mins
+                  Daftarkan Motor Anda
                 </h3>
                 <p className="text-[14px] text-[#555555] leading-relaxed">
-                  Upload a few clean photos, enter your bike's year and model, and set your own daily price. Set your availability calendar on your terms.
+                  Punya motor yang jarang terpakai di garasi atau rumah Bandung? Daftarkan tipe motor, tahun pembuatan, dan pelat D Anda tanpa biaya pendaftaran apapun.
                 </p>
               </div>
               <div className="pt-4 mt-4 border-t border-gray-300 text-[12px] text-[#888888]">
-                Free to list. No upfront subscription or listing fees.
+                Khusus motor matic, retro, atau adventure tahun 2019 ke atas kondisi terawat.
               </div>
             </div>
 
@@ -143,20 +143,20 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onRentClick, onListClick
             <div className="p-6 bg-[#F0F2F4] rounded-[4px] border border-gray-200 flex flex-col justify-between">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#A0844B] block mb-2">
-                  Step 02
+                  Langkah 02
                 </span>
                 <div className="w-10 h-10 bg-white text-[#212121] rounded-[3px] flex items-center justify-center mb-4 border border-gray-200">
-                  <CalendarCheck className="w-5 h-5 text-[#A0844B]" />
+                  <ShieldCheck className="w-5 h-5 text-[#A0844B]" />
                 </div>
                 <h3 className="text-[18px] font-bold text-[#212121] mb-2">
-                  Review & Approve Riders
+                  Pengecekan Fisik & Standarisasi
                 </h3>
                 <p className="text-[14px] text-[#555555] leading-relaxed">
-                  You approve every booking. Screen rider ratings, riding experience, and message them beforehand. Backed by our $1,000,000 liability policy.
+                  Tim Misionary mengecek kondisi mesin, rem, dan kelistrikan. Kami merawat dan memasang aksesoris standar sewa (phone holder & helm SNI Misionary).
                 </p>
               </div>
               <div className="pt-4 mt-4 border-t border-gray-300 text-[12px] text-[#888888]">
-                Pre-authorized deposit locked on rider card before handover.
+                Penyewa diverifikasi ketat (e-KTP & SIM C aktif wajib diserahkan).
               </div>
             </div>
 
@@ -164,20 +164,20 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onRentClick, onListClick
             <div className="p-6 bg-[#F0F2F4] rounded-[4px] border border-gray-200 flex flex-col justify-between">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#A0844B] block mb-2">
-                  Step 03
+                  Langkah 03
                 </span>
                 <div className="w-10 h-10 bg-white text-[#212121] rounded-[3px] flex items-center justify-center mb-4 border border-gray-200">
                   <DollarSign className="w-5 h-5 text-[#A0844B]" />
                 </div>
                 <h3 className="text-[18px] font-bold text-[#212121] mb-2">
-                  Direct Bank Payout (80% Net)
+                  Terima Bagi Hasil (70% Bersih)
                 </h3>
                 <p className="text-[14px] text-[#555555] leading-relaxed">
-                  Inspect the bike at return. Once condition is verified, payouts are triggered directly to your bank account with the transparent 20% fee deducted.
+                  Motor menghasilkan pasif income daripada menganggur. Bagi hasil 70% ditransfer langsung ke rekening bank Anda setiap tanggal 1 & 15 setiap bulannya.
                 </p>
               </div>
               <div className="pt-4 mt-4 border-t border-gray-300 text-[12px] text-[#888888]">
-                Payouts release within 24 hours of return sign-off.
+                Cuci steam & servis berkala ditangani oleh Misionary.
               </div>
             </div>
           </div>
@@ -187,17 +187,17 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onRentClick, onListClick
           {activeAudience === 'renter' ? (
             <button
               onClick={onRentClick}
-              className="bg-[#A0844B] hover:bg-[#8f743f] text-white text-[14px] font-semibold px-6 py-3 rounded-[4px] inline-flex items-center gap-2 cursor-pointer"
+              className="bg-[#A0844B] hover:bg-[#8f743f] text-white text-[14px] font-semibold px-6 py-3 rounded-[4px] inline-flex items-center gap-2 cursor-pointer transition-colors"
             >
-              Search Available Bikes
+              Lihat Pilihan Motor Tersedia
               <ArrowRight className="w-4 h-4" />
             </button>
           ) : (
             <button
               onClick={onListClick}
-              className="bg-[#A0844B] hover:bg-[#8f743f] text-white text-[14px] font-semibold px-6 py-3 rounded-[4px] inline-flex items-center gap-2 cursor-pointer"
+              className="bg-[#A0844B] hover:bg-[#8f743f] text-white text-[14px] font-semibold px-6 py-3 rounded-[4px] inline-flex items-center gap-2 cursor-pointer transition-colors"
             >
-              List Your Motorcycle Today
+              Daftarkan Motor Anda Sekarang
               <ArrowRight className="w-4 h-4" />
             </button>
           )}
@@ -206,3 +206,4 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onRentClick, onListClick
     </section>
   );
 };
+

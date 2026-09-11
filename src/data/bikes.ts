@@ -1,267 +1,189 @@
 import { Motorbike, TestimonialItem, FaqItem } from '../types';
+import beatImg from '../img/beat.jpg';
+import scoppyImg from '../img/scoppy.jpg';
+import variImg from '../img/vari.jpg';
+import nmaxImg from '../img/nmax.jpg';
+import aeroxImg from '../img/aerox.jpg';
 
 export const MOTORBIKES: Motorbike[] = [
   {
-    id: 'bike-1',
-    make: 'BMW',
-    model: 'R 1250 GS Adventure',
+    id: 'misi-beat',
+    make: 'Honda',
+    model: 'BeAT eSP',
     year: 2023,
-    category: 'Adventure',
-    city: 'Denver',
-    state: 'CO',
-    dailyRate: 165,
-    securityDeposit: 500,
-    engineDisplacement: '1,254 cc Boxer Twin',
-    horsepower: '136 hp @ 7,750 RPM',
-    seatHeight: '35.0 in',
-    weight: '591 lbs',
-    transmission: '6-Speed with Quickshifter',
-    images: [
-      'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?auto=format&fit=crop&w=1200&q=80'
-    ],
-    owner: {
-      name: 'Marcus Thorne',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-      memberSince: 'Member since 2021',
-      verified: true,
-      responseRate: '100%',
-      responseTime: 'Under 1 hour',
-      totalTrips: 42,
-      rating: 4.98
-    },
-    features: ['Aluminum Panniers', 'Heated Grips & Seats', 'TFT Display with GPS Nav', 'Cruise Control', 'Engine Guard Bars'],
-    description: 'Equipped for Rocky Mountain passes, the Million Dollar Highway, or weekend camping loops. Kept in climate-controlled garage, serviced strictly by BMW Motorrad Denver.',
-    guidelines: 'Rider must have at least 2 years of adventure or big-twin riding experience. Return with 91+ octane full tank.'
+    category: 'Matic Harian',
+    area: 'Stasiun Bandung & Pasteur',
+    dailyRate: 85000,
+    depositInfo: 'Cukup e-KTP Asli (Tanpa Uang Jaminan Tunai)',
+    engineDisplacement: '110 cc eSP PGM-FI',
+    fuelConsumption: '60.6 km / liter (Paling Irit)',
+    transmission: 'Otomatis (CVT)',
+    trunkCapacity: '12 Liter',
+    images: [beatImg],
+    facilities: ['2 Helm SNI Bersih & Wangi', '2 Jas Hujan Setelan', 'Phone Holder Stang Kokoh', 'STNK Asli Resmi', 'Bensin Awal Ready to Ride'],
+    description: 'Skutik terlaris dan paling lincah di Bandung. Sangat hemat bahan bakar, enteng dikendarai, dan lincah menembus kepadatan lalu lintas kota Bandung.',
+    bestFor: 'Keliling kota Bandung, mobilitas harian hemat, & kulineran santai',
+    guidelines: 'Gunakan bahan bakar minimal Pertalite / Pertamax. Selalu kunci stang saat parkir.',
+    rating: 4.96,
+    tripsCount: 185,
+    isPopular: true,
+    unitCondition: 'Prima & Bersih'
   },
   {
-    id: 'bike-2',
-    make: 'Harley-Davidson',
-    model: 'Street Glide Special',
-    year: 2022,
-    category: 'Cruiser',
-    city: 'Los Angeles',
-    state: 'CA',
-    dailyRate: 185,
-    securityDeposit: 500,
-    engineDisplacement: 'Milwaukee-Eight 114 (1,868 cc)',
-    horsepower: '100 hp @ 5,020 RPM',
-    seatHeight: '27.2 in',
-    weight: '827 lbs',
-    transmission: '6-Speed Cruise Drive',
-    images: [
-      'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1558980664-3a031cf67ea8?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1558981359-219d6364c9c8?auto=format&fit=crop&w=1200&q=80'
-    ],
-    owner: {
-      name: 'Jesse Walker',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
-      memberSince: 'Member since 2020',
-      verified: true,
-      responseRate: '98%',
-      responseTime: 'Within 2 hours',
-      totalTrips: 67,
-      rating: 4.95
-    },
-    features: ['Boom! Box GTS Infotainment', 'Vance & Hines Exhaust', 'Highway Pegs', 'Hard Locking Saddlebags', 'ABS Reflex Brakes'],
-    description: 'The definitive American highway cruiser. Ideal for rolling up the Pacific Coast Highway through Malibu and Big Sur. Deep rumble, comfortable touring ergonomics.',
-    guidelines: 'No burnouts or track use. Minimum 25 years old. Phone mount and USB charger included.'
-  },
-  {
-    id: 'bike-3',
-    make: 'Triumph',
-    model: 'Bonneville T120 Black',
-    year: 2023,
-    category: 'Classic / Vintage',
-    city: 'Austin',
-    state: 'TX',
-    dailyRate: 135,
-    securityDeposit: 400,
-    engineDisplacement: '1,200 cc Parallel Twin',
-    horsepower: '80 hp @ 6,550 RPM',
-    seatHeight: '31.1 in',
-    weight: '520 lbs',
-    transmission: '6-Speed Torque-Assist',
-    images: [
-      'https://images.unsplash.com/photo-1558981804-03c059ae6ec7?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=1200&q=80'
-    ],
-    owner: {
-      name: 'Claire Vance',
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
-      memberSince: 'Member since 2022',
-      verified: true,
-      responseRate: '100%',
-      responseTime: 'Under 30 mins',
-      totalTrips: 31,
-      rating: 5.0
-    },
-    features: ['Brembo Front Brakes', 'Cruise Control', 'Leather Waxed Canvas Panniers', 'Heated Grips', 'Road & Rain Ride Modes'],
-    description: 'Timeless British heritage with modern electronic precision. Perfect for exploring Texas Hill Country roads like the Twisted Sisters or evening rides down South Congress.',
-    guidelines: 'Please park in safe off-street locations overnight. Disc brake lock provided upon pickup.'
-  },
-  {
-    id: 'bike-4',
-    make: 'Ducati',
-    model: 'DesertX 937',
+    id: 'misi-scoopy',
+    make: 'Honda',
+    model: 'Scoopy Prestige',
     year: 2024,
-    category: 'Adventure',
-    city: 'Phoenix',
-    state: 'AZ',
-    dailyRate: 175,
-    securityDeposit: 600,
-    engineDisplacement: '937 cc Testastretta 11°',
-    horsepower: '110 hp @ 9,250 RPM',
-    seatHeight: '34.4 in',
-    weight: '492 lbs',
-    transmission: '6-Speed DQS Up/Down',
-    images: [
-      'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80'
-    ],
-    owner: {
-      name: 'Ramon Ortega',
-      avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=200&q=80',
-      memberSince: 'Member since 2023',
-      verified: true,
-      responseRate: '95%',
-      responseTime: 'Under 1 hour',
-      totalTrips: 19,
-      rating: 4.92
-    },
-    features: ['21" Front Spoke Wheel', 'KYB Long-Travel Suspension', '6 Riding Modes with Rally Mode', 'Garmin Zumo Nav Bracket', 'Tubeless Off-Road Tires'],
-    description: 'A genuine Dakar-inspired machine. Incredible agility on asphalt mountain twisties and unpaved desert trails throughout the Arizona backcountry.',
-    guidelines: 'Desert dirt riding welcomed, but no single-track rock-crawling. Pre-trip walkthrough takes about 15 minutes.'
+    category: 'Matic Harian',
+    area: 'Dago & Braga Heritage',
+    dailyRate: 95000,
+    depositInfo: 'Cukup e-KTP Asli (Tanpa Uang Jaminan Tunai)',
+    engineDisplacement: '110 cc eSP Smart Key',
+    fuelConsumption: '59 km / liter',
+    transmission: 'Otomatis (CVT)',
+    trunkCapacity: '15.4 Liter',
+    images: [scoppyImg],
+    facilities: ['2 Helm Retro SNI Bersih', '2 Jas Hujan Setelan', 'Phone Holder Stang Alumunium', 'Smart Key & Alarm', 'STNK Asli Resmi'],
+    description: 'Desain retro fashionable yang sangat digemari muda-mudi Bandung. Dilengkapi Smart Key System, charger HP di laci, dan pijakan kaki luas.',
+    bestFor: 'Wisata santai, cafe hopping Dago & Braga, & foto estetik',
+    guidelines: 'Kunci Smart Key dijaga baik-baik, jangan ditinggal di laci motor.',
+    rating: 4.99,
+    tripsCount: 240,
+    isPopular: true,
+    unitCondition: 'Favorit Wisatawan'
   },
   {
-    id: 'bike-5',
-    make: 'Indian Motorcycle',
-    model: 'Scout Bobber Twenty',
+    id: 'misi-vario',
+    make: 'Honda',
+    model: 'Vario 125 CBS ISS',
     year: 2023,
-    category: 'Cruiser',
-    city: 'Nashville',
-    state: 'TN',
-    dailyRate: 145,
-    securityDeposit: 450,
-    engineDisplacement: '1,133 cc Liquid-Cooled V-Twin',
-    horsepower: '100 hp @ 8,100 RPM',
-    seatHeight: '25.6 in',
-    weight: '553 lbs',
-    transmission: '6-Speed Manual',
-    images: [
-      'https://images.unsplash.com/photo-1558980394-4c7c9299fe96?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1200&q=80'
-    ],
-    owner: {
-      name: 'Hank Dawson',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
-      memberSince: 'Member since 2019',
-      verified: true,
-      responseRate: '100%',
-      responseTime: 'Under 15 mins',
-      totalTrips: 88,
-      rating: 4.97
-    },
-    features: ['Ape-Hanger Handlebars', 'Floating Solo Saddle', 'Wire Spoke Wheels', 'Dual Vance & Hines Pipes', 'USB Port'],
-    description: 'Raw, aggressive bobber styling with modern liquid-cooled punch. Turns heads everywhere in Nashville and rolls smoothly down the Natchez Trace Parkway.',
-    guidelines: 'Solo rider only (no passenger pegs). Helmet and gloves available if needed.'
+    category: 'Matic Harian',
+    area: 'Dipatiukur & Stasiun Whoosh',
+    dailyRate: 110000,
+    depositInfo: 'Cukup e-KTP Asli (Tanpa Uang Jaminan Tunai)',
+    engineDisplacement: '125 cc Liquid-Cooled eSP',
+    fuelConsumption: '51.7 km / liter',
+    transmission: 'Otomatis (CVT)',
+    trunkCapacity: '18 Liter (Muat Helm)',
+    images: [variImg],
+    facilities: ['2 Helm SNI Bersih', '2 Jas Hujan Setelan', 'Phone Holder Stang Kokoh', 'Bagasi Luas 18L', 'STNK Asli Resmi'],
+    description: 'Skutik serbaguna dengan tarikan bertenaga dan pendingin radiator. Sangat stabil dan bertenaga kuat untuk nanjak ke arah Setiabudi, Lembang, dan Punclut.',
+    bestFor: 'Keliling kota, tanjakan Lembang & Punclut, harian nyaman',
+    guidelines: 'Periksa tekanan ban sebelum menempuh rute perbukitan Lembang.',
+    rating: 4.95,
+    tripsCount: 160,
+    unitCondition: 'Prima & Bersih'
   },
   {
-    id: 'bike-6',
+    id: 'misi-nmax',
     make: 'Yamaha',
-    model: 'MT-09 SP',
+    model: 'NMAX 155 Connected',
     year: 2024,
-    category: 'Sport',
-    city: 'Seattle',
-    state: 'WA',
-    dailyRate: 130,
-    securityDeposit: 450,
-    engineDisplacement: '890 cc CP3 Inline-Triple',
-    horsepower: '117 hp @ 10,000 RPM',
-    seatHeight: '32.5 in',
-    weight: '419 lbs',
-    transmission: '6-Speed with Auto-Blipper',
-    images: [
-      'https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1558981804-03c059ae6ec7?auto=format&fit=crop&w=1200&q=80'
-    ],
-    owner: {
-      name: 'Derek Lin',
-      avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80',
-      memberSince: 'Member since 2022',
-      verified: true,
-      responseRate: '99%',
-      responseTime: 'Under 45 mins',
-      totalTrips: 27,
-      rating: 4.96
-    },
-    features: ['Öhlins Fully Adjustable Rear Shock', 'KYB DLC Front Forks', 'Cruise Control', '6-Axis IMU Lean-Sensitive Traction', 'Brembo Radial Master Cylinder'],
-    description: 'Instant torque, thrilling triple exhaust note, and razor-sharp handling. Ideal for exploring North Cascades Highway or Bainbridge Island loops.',
-    guidelines: 'Strictly street use only. Must hold valid motorcycle endorsement for at least 3 years.'
+    category: 'Maxi Scooter',
+    area: 'Stasiun Bandung & Lembang',
+    dailyRate: 140000,
+    depositInfo: 'Cukup e-KTP Asli (Tanpa Uang Jaminan Tunai)',
+    engineDisplacement: '155 cc VVA Liquid-Cooled',
+    fuelConsumption: '42 km / liter',
+    transmission: 'Otomatis (CVT)',
+    trunkCapacity: '24 Liter (Muat 2 Helm)',
+    images: [nmaxImg],
+    facilities: ['2 Helm SNI Bersih & Wangi', '2 Jas Hujan Setelan Tebal', 'Phone Holder Stang', 'Suspensi Belakang Sub-Tank', 'STNK Asli Resmi'],
+    description: 'Maxi scooter paling nyaman untuk touring liburan jarak jauh di Bandung. Posisi kaki bisa selonjoran santai, suspensi tabung empuk, dan bertenaga besar di tanjakan.',
+    bestFor: 'Touring ke Tangkuban Perahu, Kawah Putih Ciwidey, & Pangalengan',
+    guidelines: 'Isi bahan bakar Pertamax untuk performa optimal VVA.',
+    rating: 4.99,
+    tripsCount: 310,
+    isPopular: true,
+    unitCondition: 'Favorit Wisatawan'
+  },
+  {
+    id: 'misi-aerox',
+    make: 'Yamaha',
+    model: 'Aerox 155 Connected',
+    year: 2024,
+    category: 'Maxi Scooter',
+    area: 'Cihampelas & Setiabudi',
+    dailyRate: 135000,
+    depositInfo: 'Cukup e-KTP Asli (Tanpa Uang Jaminan Tunai)',
+    engineDisplacement: '155 cc VVA Blue Core',
+    fuelConsumption: '43 km / liter',
+    transmission: 'Otomatis (CVT)',
+    trunkCapacity: '25 Liter',
+    images: [aeroxImg],
+    facilities: ['2 Helm SNI Bersih', '2 Jas Hujan Setelan', 'Phone Holder Stang Kokoh', 'Speedometer Digital Connected', 'STNK Asli Resmi'],
+    description: 'Skutik Maxi bernuansa super sport dengan akselerasi responsif dan handling presisi. Tampilan agresif dan sporty, sangat digemari untuk Sunmori di Bandung.',
+    bestFor: 'Sunmori Lembang - Ciater Subang & keliling kota dengan gaya sporty',
+    guidelines: 'Berkendara dengan aman dan patuhi rambu lalu lintas Bandung.',
+    rating: 4.97,
+    tripsCount: 125,
+    unitCondition: 'Unit Baru 2024'
   }
 ];
 
 export const TESTIMONIALS: TestimonialItem[] = [
   {
     id: 'test-1',
-    quote: 'Twisted Road made it straightforward to rent out my BMW GS when I travel for work. Knowing riders are pre-screened and that the photo inspection protects both of us gives me total peace of mind. I earned over $4,200 this summer alone.',
-    author: 'Marcus Thorne',
-    role: 'Owner',
-    location: 'Denver, Colorado',
-    motorcycle: 'BMW R 1250 GS Adventure',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80'
+    quote: 'Turun di Stasiun Bandung jam 9 pagi, tim Misionary udah standby di pintu selatan nganter NMAX yang super kinclong. Helmnya beneran wangi dan dapet jas hujan bagus. Liburan 3 hari keliling Dago dan Lembang jadi anti ribet!',
+    author: 'David Simbolon',
+    origin: 'UNAI',
+    route: 'Stasiun Bandung → Dago & Lembang',
+    motorcycle: 'Yamaha NMAX 155 Connected',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80',
+    rating: 5.0
   },
   {
     id: 'test-2',
-    quote: 'I flew into LAX for a 4-day solo ride up Big Sur. Rental agencies wanted $300/day for a stripped-down stock cruiser. On Twisted Road, I booked Jesse\'s Street Glide directly. Clear pricing upfront, no surprise deposit charges, and an awesome bike.',
-    author: 'Elena Rostova',
-    role: 'Renter',
-    location: 'Chicago, Illinois (rented in LA)',
-    motorcycle: 'Harley-Davidson Street Glide',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'
+    quote: 'Sewa Aerox buat riding bareng pasangan di jalan Braga dan ngopi sore di Dago Pakar. Unitnya mulus banget kayak motor pribadi baru keluar dealer. Proses booking via WA cepat dan ramah!',
+    author: 'Joe & Abigail',
+    origin: 'Parongpong',
+    route: 'Braga, Dago Pakar & Ciwidey',
+    motorcycle: 'Yamaha Aerox 155 Connected',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
+    rating: 5.0
   },
   {
     id: 'test-3',
-    quote: 'Listing my Bonneville was simple — literally took 5 minutes on my phone. Payouts arrive directly to my bank after each rental, minus the clear 20% platform fee. No hidden fees or corporate runaround.',
-    author: 'Claire Vance',
-    role: 'Owner',
-    location: 'Austin, Texas',
-    motorcycle: 'Triumph Bonneville T120',
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80'
+    quote: 'Pelayanan Misionary juara! Walaupun baru buka, tapi profesional banget. Unit Scoopy-nya irit banget buat keliling cafe 2 hari penuh. Bensin awal udah siap, phone holdernya juga kokoh buat Google Maps.',
+    author: 'Ramos',
+    origin: 'Bandung',
+    route: 'Kiara Artha, Dipatiukur, Punclut',
+    motorcycle: 'Honda Scoopy Prestige',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80',
+    rating: 4.9
   }
 ];
 
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    question: 'How does the security deposit work for renters?',
-    answer: 'The security deposit is a temporary pre-authorization hold on your credit card, not an upfront charge. It is held during the rental period and automatically released within 48 hours of return once the owner verifies the bike was returned in the agreed condition with no damage or unpaid tolls.',
-    category: 'renter'
+    question: 'Apa saja syarat untuk menyewa motor di Misionary Bandung?',
+    answer: 'Syaratnya sangat mudah dan cepat: (1) Memiliki e-KTP asli yang masih berlaku sebagai jaminan identitas selama masa sewa, (2) Memiliki SIM C aktif, dan (3) Menyertakan bukti tiket kedatangan (Kereta Api / Tiket Pesawat / Whoosh) ATAU bukti reservasi hotel/penginapan di Bandung. Tanpa jaminan uang tunai jutaan rupiah.',
+    category: 'syarat'
   },
   {
-    question: 'How do owner payouts work, and what is the commission?',
-    answer: 'Owners receive 80% of the total rental fee directly to their bank account (20% covers platform operations, payment processing, verified rider screening, and insurance support). Payouts are triggered automatically 24 hours after the return inspection is completed.',
-    category: 'owner'
+    question: 'Apakah motor bisa diantar ke Stasiun Bandung atau Hotel tempat saya menginap?',
+    answer: 'Tentu bisa! Kami menyediakan layanan antar-jemput unit ke Stasiun Bandung (Pintu Utama/Selatan & Pintu Kebon Kawung), Stasiun KCIC Whoosh (Padalarang/Tegalluar), Pool Travel Pasteur, serta hotel atau villa di area Dago, Riau, Cihampelas, dan pusat kota Bandung. Cukup infokan jam kedatangan dan lokasi Anda.',
+    category: 'antar-jemput'
   },
   {
-    question: 'Why is the photo inspection at handover mandatory?',
-    answer: 'Before taking off and immediately upon return, both rider and owner take a quick 4-point photographic walkthrough (360° exterior, fuel level, and odometer). These time-stamped photos create an indisputable record that protects the rider from pre-existing blemishes and protects the owner against new damage.',
-    category: 'insurance'
+    question: 'Fasilitas apa saja yang didapatkan penyewa?',
+    answer: 'Setiap sewa unit di Misionary sudah mencakup: (1) 2 buah Helm SNI yang bersih, higienis dan wangi, (2) 2 set Jas Hujan tebal anti rembes (bukan plastik kresek), (3) Phone Holder kokoh yang sudah terpasang di stang untuk navigasi Google Maps, (4) STNK asli resmi berpelat D Bandung dalam dompet pelindung, dan (5) Bensin awal sehingga Anda bisa langsung jalan.',
+    category: 'fasilitas'
   },
   {
-    question: 'Are rentals instant, or does the owner have to approve?',
-    answer: 'To preserve community safety and bike care, Twisted Road operates on a request-to-book model. Owners typically review and approve booking requests within a few hours (maximum 24 hours). You are only charged once the owner formally confirms your reservation.',
-    category: 'renter'
+    question: 'Bagaimana sistem bahan bakar (bensin) saat pengambilan dan pengembalian?',
+    answer: 'Kami menerapkan sistem adil "Sama Kembali Sama": saat serah terima, indikator bensin akan difoto bersama. Saat masa sewa selesai, Anda cukup mengembalikan motor dengan indikator bensin yang sama seperti awal pengambilan.',
+    category: 'fasilitas'
   },
   {
-    question: 'What requirements must a rider meet to rent?',
-    answer: 'Renters must be at least 21 years old (25+ for select high-displacement bikes), hold a valid unrestricted motorcycle license or endorsement, and pass our automated identity and driving record screening.',
-    category: 'renter'
+    question: 'Bagaimana metode pembayaran di Misionary?',
+    answer: 'Kami menerima pembayaran melalui QRIS (bisa dari semua e-wallet seperti GoPay, OVO, Dana, ShopeePay, dan Mobile Banking BCA, Mandiri, BRI, BNI), Transfer Bank, maupun uang tunai saat serah terima motor.',
+    category: 'pembayaran'
   },
   {
-    question: 'What insurance protection is included?',
-    answer: 'Every trip booked through Twisted Road is backed by comprehensive liability coverage up to $1,000,000, along with comprehensive and collision physical damage coverage and 24/7 emergency roadside assistance.',
-    category: 'insurance'
+    question: 'Apakah ada potongan harga untuk sewa lebih dari 3 hari atau mingguan?',
+    answer: 'Ada! Kami memberikan diskon khusus untuk sewa 3 hari ke atas (diskon 5%) dan sewa mingguan 7 hari (diskon hingga 15%). Hubungi admin kami via WhatsApp untuk mendapatkan penawaran paket hemat liburan.',
+    category: 'pembayaran'
   }
 ];
+
