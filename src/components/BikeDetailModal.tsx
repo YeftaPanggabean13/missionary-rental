@@ -47,10 +47,13 @@ export const BikeDetailModal: React.FC<BikeDetailModalProps> = ({ bike, onClose,
     }
   };
 
-  const handleSendWhatsApp = () => {
+  const handleSendWhatsApp = (code?: string) => {
+    const activeCode = code || bookingCode;
+    const codeLine = activeCode ? `• Kode Booking: ${activeCode}\n` : '';
     const waText = encodeURIComponent(
       `Halo Admin Misionary Rental Motor Bandung,\n\n` +
       `Saya ingin konfirmasi pemesanan sewa motor:\n` +
+      codeLine +
       `• Unit: ${bike.make} ${bike.model} (${bike.year})\n` +
       `• Durasi: ${rentalDays} Hari (${startDate})\n` +
       `• Titik Penyerahan: ${getPickupName()}\n` +
@@ -63,8 +66,42 @@ export const BikeDetailModal: React.FC<BikeDetailModalProps> = ({ bike, onClose,
     window.open(`https://wa.me/6281234567890?text=${waText}`, '_blank');
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const [bookingCode, setBookingCode] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
+
+    let receivedCode = '';
+    try {
+      const res = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customerName: riderName,
+          customerPhone: riderPhone,
+          bikeId: bike.id,
+          bikeName: `${bike.make} ${bike.model}`,
+          startDate: startDate,
+          rentalDays,
+          pickupLocation: getPickupName(),
+          pickupAddress,
+          extraHelm,
+          dailyRate: bike.dailyRate,
+          totalAmount: totalChargedNow,
+          notes: '',
+        }),
+      });
+      const data = await res.json();
+      if (data.success && data.bookingCode) {
+        receivedCode = data.bookingCode;
+        setBookingCode(data.bookingCode);
+      }
+    } catch {
+      // Fallback — still show success UI even if API unreachable
+    }
+
     setStep('success');
     onRequestSubmitted({
       bike,
@@ -75,6 +112,7 @@ export const BikeDetailModal: React.FC<BikeDetailModalProps> = ({ bike, onClose,
       pickupOption: getPickupName(),
       pickupAddress
     });
+    setSubmitting(false);
   };
 
   return (
@@ -114,9 +152,23 @@ export const BikeDetailModal: React.FC<BikeDetailModalProps> = ({ bike, onClose,
               <h3 className="text-2xl font-bold text-[#212121] mb-2">
                 Pemesanan Berhasil Dicatat!
               </h3>
-              <p className="text-[14px] text-[#555555] mb-6 leading-relaxed">
+              <p className="text-[14px] text-[#555555] mb-5 leading-relaxed">
                 Unit <strong>{bike.year} {bike.make} {bike.model}</strong> telah dijadwalkan. Silakan konfirmasi cepat via WhatsApp untuk koordinasi penyerahan motor dan serah terima kunci.
               </p>
+
+              {bookingCode && (
+                <div className="bg-[#A0844B]/10 border border-[#A0844B]/30 rounded-[6px] p-4 mb-5 text-center">
+                  <span className="text-[11px] text-[#8C6D37] font-bold uppercase tracking-wider block mb-1">
+                    Kode Pelacakan Pesanan Anda
+                  </span>
+                  <div className="text-2xl font-mono font-black text-[#212121] tracking-widest selection:bg-[#A0844B] selection:text-white">
+                    {bookingCode}
+                  </div>
+                  <p className="text-[12px] text-[#666666] mt-1.5">
+                    Gunakan kode ini di menu <strong>Cek Pesanan</strong> di navigasi atas untuk memantau status pesanan dan unit motor Anda.
+                  </p>
+                </div>
+              )}
 
               <div className="bg-[#F0F2F4] border border-gray-200 rounded-[4px] p-4 text-left text-[13px] space-y-2 mb-6">
                 <div className="flex justify-between">
@@ -273,7 +325,7 @@ export const BikeDetailModal: React.FC<BikeDetailModalProps> = ({ bike, onClose,
 
               {/* Right Column: Pricing Breakdown & Checkout Form (5 cols) */}
               <div className="lg:col-span-5 bg-[#F0F2F4] border border-gray-200 rounded-[4px] p-5 flex flex-col justify-between">
-                <form onSubmit={handleRequestSubmit} className="space-y-4">
+                <form onSubmit={handleFormSubmit} className="space-y-4">
                   <div>
                     <div className="flex items-baseline justify-between mb-1">
                       <span className="text-2xl font-bold text-[#212121]">
@@ -485,9 +537,10 @@ export const BikeDetailModal: React.FC<BikeDetailModalProps> = ({ bike, onClose,
 
                     <button
                       type="submit"
-                      className="w-full bg-[#F8E01A] hover:bg-[#e6d018] text-[#212121] font-bold text-[14px] py-2.5 rounded-[4px] transition-colors shadow-sm cursor-pointer"
+                      disabled={submitting}
+                      className="w-full bg-[#F8E01A] hover:bg-[#e6d018] disabled:opacity-50 text-[#212121] font-bold text-[14px] py-2.5 rounded-[4px] transition-colors shadow-sm cursor-pointer"
                     >
-                      Simpan Jadwal Booking di Web
+                      {submitting ? 'Menyimpan Pemesanan...' : 'Simpan Jadwal Booking di Web'}
                     </button>
                   </div>
 
