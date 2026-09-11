@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Shield, Phone, Mail, MapPin, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, MessageSquare } from 'lucide-react';
+import missionaryLogoWhite from '../img/missionary-horizontal-white.png';
 
 interface FooterProps {
   onCityClick: (city: string) => void;
@@ -23,14 +24,15 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onNavigate }) => {
         {/* Top Newsletter & Script Brand banner */}
         <div className="pb-10 border-b border-[#333333] flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div>
-            <div className="flex items-baseline gap-1.5 mb-2">
-              <span className="font-script text-3xl sm:text-4xl text-white tracking-wide">
-                Twisted Road
-              </span>
-              <span className="w-1.5 h-1.5 bg-[#A0844B] rounded-full"></span>
+            <div className="mb-3.5">
+              <img
+                src={missionaryLogoWhite}
+                alt="Misionary Rental Motor Bandung"
+                className="h-9 sm:h-10 w-auto object-contain"
+              />
             </div>
             <p className="text-[#B5B5B5] max-w-md text-[13px] leading-relaxed">
-              The premier peer-to-peer motorcycle rental marketplace. Connecting riders and local bike owners with complete insurance and mutual respect.
+              Rental motor bersih, nyaman, dan terpercaya di Bandung. Layanan antar-jemput tepat waktu ke Stasiun Bandung, Whoosh, dan Hotel Anda lengkap dengan 2 helm SNI & jas hujan.
             </p>
           </div>
 
@@ -42,38 +44,46 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onNavigate }) => {
                 required
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
-                placeholder="Enter email for scenic route guides..."
+                placeholder="Ketik email untuk info promo & rute..."
                 className="bg-[#181818] border border-[#444444] text-white text-[13px] rounded-[4px] px-3.5 py-2.5 focus:outline-none focus:border-[#A0844B] min-w-[240px]"
               />
               <button
                 type="submit"
                 className="bg-[#A0844B] hover:bg-[#8f743f] text-white font-semibold px-4 py-2.5 rounded-[4px] transition-colors cursor-pointer shrink-0"
               >
-                {subscribed ? 'Subscribed ✓' : 'Stay in Touch'}
+                {subscribed ? 'Terdaftar ✓' : 'Dapatkan Info Promo'}
               </button>
             </form>
             {subscribed && (
               <span className="text-[11px] text-emerald-400 block mt-1.5">
-                Thanks for joining the Twisted Road community dispatch.
+                Terima kasih! Kami akan mengirimkan panduan rute wisata kuliner & ngopi Bandung.
               </span>
             )}
           </div>
         </div>
 
-        {/* Dense 4-column directory from Brand Guideline */}
+        {/* Dense 4-column directory */}
         <div className="py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-[#B5B5B5]">
-          {/* Col 1: Learn More */}
+          {/* Col 1: Layanan Misionary */}
           <div>
             <h4 className="text-[13px] font-bold text-white uppercase tracking-wider mb-3">
-              Learn More
+              Layanan Sewa
             </h4>
             <ul className="space-y-2">
+              <li>
+                <button
+                  onClick={() => onNavigate('browse')}
+                  className="hover:text-white transition-colors cursor-pointer text-left"
+                >
+                  Pilihan Motor & Tarif
+                </button>
+              </li>
               <li>
                 <button
                   onClick={() => onNavigate('how-it-works')}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  How Renting Works
+                  Cara Sewa 3 Langkah
                 </button>
               </li>
               <li>
@@ -81,15 +91,7 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onNavigate }) => {
                   onClick={() => onNavigate('earnings')}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  List Your Motorcycle (Earn 80%)
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onNavigate('safety')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  $1M Insurance & Liability Protection
+                  Program Titip Motor (70% Net)
                 </button>
               </li>
               <li>
@@ -97,7 +99,7 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onNavigate }) => {
                   onClick={() => onNavigate('inspection')}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Photo Inspection Protocol
+                  Standar Cek Fisik Serah Terima
                 </button>
               </li>
               <li>
@@ -105,104 +107,121 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onNavigate }) => {
                   onClick={() => onNavigate('faq')}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Security Deposit Pre-Auth Policy
+                  Syarat e-KTP & Jaminan
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Col 2: Popular Cities */}
+          {/* Col 2: Area Antar-Jemput */}
           <div>
             <h4 className="text-[13px] font-bold text-white uppercase tracking-wider mb-3">
-              Popular Cities
+              Area Antar-Jemput
             </h4>
             <ul className="space-y-2">
               <li>
                 <button
-                  onClick={() => { onCityClick('Denver'); onNavigate('browse'); }}
+                  onClick={() => { onCityClick('Stasiun Bandung'); onNavigate('browse'); }}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Denver, CO (Rocky Mountain Passes)
+                  Stasiun Bandung (Hall & Kebon Kawung)
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => { onCityClick('Los Angeles'); onNavigate('browse'); }}
+                  onClick={() => { onCityClick('Stasiun Whoosh Padalarang'); onNavigate('browse'); }}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Los Angeles, CA (Pacific Coast Hwy)
+                  Stasiun KCIC Whoosh Padalarang
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => { onCityClick('Austin'); onNavigate('browse'); }}
+                  onClick={() => { onCityClick('Dago & Dipatiukur'); onNavigate('browse'); }}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Austin, TX (Texas Hill Country)
+                  Dago & Dipatiukur
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => { onCityClick('Phoenix'); onNavigate('browse'); }}
+                  onClick={() => { onCityClick('Lembang'); onNavigate('browse'); }}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Phoenix, AZ (Desert Backcountry)
+                  Lembang & Setiabudi
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => { onCityClick('Seattle'); onNavigate('browse'); }}
+                  onClick={() => { onCityClick('Pasteur'); onNavigate('browse'); }}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Seattle, WA (North Cascades Loop)
+                  Pasteur (Pool Travel & Hotel)
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => { onCityClick('Nashville'); onNavigate('browse'); }}
+                  onClick={() => { onCityClick('Braga & Asia Afrika'); onNavigate('browse'); }}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Nashville, TN (Natchez Trace Parkway)
+                  Braga & Pusat Kota
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Popular Brands */}
+          {/* Col 3: Armada Favorit */}
           <div>
             <h4 className="text-[13px] font-bold text-white uppercase tracking-wider mb-3">
-              Popular Brands
+              Armada Favorit
             </h4>
             <ul className="space-y-2">
-              <li className="hover:text-white cursor-pointer transition-colors">Harley-Davidson Rentals</li>
-              <li className="hover:text-white cursor-pointer transition-colors">BMW Motorrad Rentals</li>
-              <li className="hover:text-white cursor-pointer transition-colors">Triumph Motorcycles</li>
-              <li className="hover:text-white cursor-pointer transition-colors">Ducati Scrambler & Adventure</li>
-              <li className="hover:text-white cursor-pointer transition-colors">Indian Motorcycle Rentals</li>
-              <li className="hover:text-white cursor-pointer transition-colors">Yamaha Street & Naked Bikes</li>
+              <li className="hover:text-white cursor-pointer transition-colors" onClick={() => onNavigate('browse')}>
+                Honda BeAT eSP (Rp 85k)
+              </li>
+              <li className="hover:text-white cursor-pointer transition-colors" onClick={() => onNavigate('browse')}>
+                Honda Scoopy Prestige (Rp 95k)
+              </li>
+              <li className="hover:text-white cursor-pointer transition-colors" onClick={() => onNavigate('browse')}>
+                Honda Vario 125 CBS ISS (Rp 110k)
+              </li>
+              <li className="hover:text-white cursor-pointer transition-colors" onClick={() => onNavigate('browse')}>
+                Yamaha Aerox 155 Connected (Rp 135k)
+              </li>
+              <li className="hover:text-white cursor-pointer transition-colors" onClick={() => onNavigate('browse')}>
+                Yamaha NMAX 155 Connected (Rp 140k)
+              </li>
             </ul>
           </div>
 
-          {/* Col 4: Stay In Touch & Support */}
+          {/* Col 4: Kontak & Lokasi Garasi */}
           <div>
             <h4 className="text-[13px] font-bold text-white uppercase tracking-wider mb-3">
-              Rider Support
+              Garasi & Kontak
             </h4>
             <div className="space-y-2.5">
-              <p className="text-[#B5B5B5]">
-                Real riders available 7 days a week for booking assistance and roadside dispatch.
-              </p>
-              <div className="flex items-center gap-2 text-white font-medium">
-                <Phone className="w-3.5 h-3.5 text-[#A0844B]" />
-                <span>(800) 555-ROAD (7623)</span>
+              <div className="flex items-start gap-2 text-[#B5B5B5]">
+                <MapPin className="w-4 h-4 text-[#A0844B] shrink-0 mt-0.5" />
+                <span>
+                  Karyawangi, Parongpong, West Bandung Regency, West Java 40559
+                </span>
               </div>
               <div className="flex items-center gap-2 text-white font-medium">
-                <Mail className="w-3.5 h-3.5 text-[#A0844B]" />
-                <span>support@twistedroad.com</span>
+                <Clock className="w-3.5 h-3.5 text-[#A0844B] shrink-0" />
+                <span>Buka Setiap Hari: 06.30 - 22.00 WIB</span>
               </div>
+              <a
+                href="https://wa.me/6281234567890?text=Halo%20Misionary,%20saya%20ingin%20tanya%20rental%20motor"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-white font-medium hover:text-[#F8E01A] transition-colors"
+              >
+                <MessageSquare className="w-3.5 h-3.5 text-[#A0844B] shrink-0" />
+                <span>WhatsApp: +62 812-6274-0733</span>
+              </a>
               <div className="flex items-center gap-2 text-[#888888]">
-                <MapPin className="w-3.5 h-3.5 text-[#A0844B]" />
-                <span>Austin, TX · Nationwide USA</span>
+                <Mail className="w-3.5 h-3.5 text-[#A0844B] shrink-0" />
+                <span>halo@misionaryrental.com</span>
               </div>
             </div>
           </div>
@@ -211,16 +230,16 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onNavigate }) => {
         {/* Bottom Legal & Copyright */}
         <div className="pt-8 border-t border-[#333333] flex flex-col sm:flex-row items-center justify-between text-[12px] text-[#888888] gap-4">
           <div>
-            © {new Date().getFullYear()} Twisted Road, Inc. All rights reserved. Rugged American motorcycle culture.
+            © {new Date().getFullYear()} Misionary Bandung. Rental motor bersih, nyaman, dan terpercaya.
           </div>
           <div className="flex flex-wrap gap-4">
-            <span className="hover:text-white cursor-pointer">Terms of Service</span>
-            <span className="hover:text-white cursor-pointer">Privacy Policy</span>
-            <span className="hover:text-white cursor-pointer">Insurance Disclosures</span>
-            <span className="hover:text-white cursor-pointer">Peer Safety Charter</span>
+            <span className="hover:text-white cursor-pointer">Ketentuan Sewa</span>
+            <span className="hover:text-white cursor-pointer">Kebijakan Privasi Identitas</span>
+            <span className="hover:text-white cursor-pointer">Panduan Berkendara Aman di Bandung</span>
           </div>
         </div>
       </div>
     </footer>
   );
 };
+

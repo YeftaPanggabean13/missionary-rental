@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, Fuel, Gauge, CheckCircle2, ShieldCheck, AlertTriangle, Smartphone, ArrowRight } from 'lucide-react';
+import { Camera, Fuel, Gauge, CheckCircle2, ShieldCheck, FileCheck, KeyRound, ArrowRight } from 'lucide-react';
 
 export const InspectionWalkthrough: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -8,50 +8,50 @@ export const InspectionWalkthrough: React.FC = () => {
   const inspectionSteps = [
     {
       id: 'photos',
-      title: '360° Photo Walkaround',
+      title: 'Cek Bodi 360° Bersama',
       icon: Camera,
-      tag: 'Mandatory Dispute Protection',
-      description: 'Before the kickstand goes up, both owner and rider snap 4 quick angles: front tire/fairing, left engine/exhaust, right saddle/controls, and rear tail.',
-      actionDetail: 'High-res photos are immediately hashed with GPS and timestamp to lock in condition.',
+      tag: 'Transparansi Kondisi Fisik',
+      description: 'Sebelum kunci diserahkan, staf Misionary dan penyewa mendokumentasikan 4 sisi motor (depan, sisi kanan knalpot, sisi kiri bodi, dan belakang).',
+      actionDetail: 'Kondisi fisik dicatat bersama untuk kenyamanan dan rasa tenang kedua pihak.',
       previewData: {
-        status: '4/4 Angles Captured',
-        items: ['Front Fork & Fairing (Clear)', 'Exhaust & Pegs (No Rash)', 'Tank & Handlebars (Clear)', 'Rear Tire & Plate (Logged)']
+        status: '4/4 Sisi Diperiksa',
+        items: ['Bodi & Spakbor Depan (Mulus)', 'Knalpot & Pijakan Kaki (Aman)', 'Spion & Stang Kemudi (Kokoh)', 'Lampu Utama & Rem Belakang (Menyala Normal)']
+      }
+    },
+    {
+      id: 'completeness',
+      title: 'Kelengkapan Surat & Aksesori',
+      icon: FileCheck,
+      tag: 'Kelengkapan Berkendara',
+      description: 'Pemeriksaan STNK asli resmi berpelat D Bandung, 2 buah helm SNI yang bersih dan wangi, 2 jas hujan setelan tebal, serta phone holder di stang.',
+      actionDetail: 'Semua kelengkapan diserahterimakan dalam kondisi bersih dan siap pakai.',
+      previewData: {
+        status: 'Kelengkapan Lengkap',
+        items: ['STNK Asli Resmi Berpelat D (Aktif)', '2 Helm SNI Bersih & Wangi', '2 Set Jas Hujan Anti-Bocor', 'Phone Holder Kokoh di Stang']
       }
     },
     {
       id: 'fuel',
-      title: 'Fuel Level Confirmation',
+      title: 'Pencatatan Bensin & Odometer',
       icon: Fuel,
-      tag: 'No Fuel Dispute Policy',
-      description: 'Record the exact fuel gauge reading on departure. The rider returns the machine at the identical level or pays standard local pump rate with no markup.',
-      actionDetail: 'Recorded: 100% Full (91 Octane Premium)',
+      tag: 'Prinsip Sama Kembali Sama',
+      description: 'Indikator bensin dan angka odometer difoto saat serah terima. Saat pengembalian, motor cukup dikembalikan dengan posisi bensin yang sama seperti awal.',
+      actionDetail: 'Bensin awal ready-to-ride tercatat bersama.',
       previewData: {
-        status: 'Fuel Confirmed Full',
-        items: ['Fuel Type: 91+ Octane Premium', 'Starting Tank: Full (100%)', 'Return Tank Requirement: Full']
-      }
-    },
-    {
-      id: 'odometer',
-      title: 'Odometer & Mileage Baseline',
-      icon: Gauge,
-      tag: 'Transparent Mileage',
-      description: 'A close-up photo of the digital dashboard odometer establishes the departure mileage. Most rentals include 200 miles/day free of charge.',
-      actionDetail: 'Departure Odometer: 8,420 miles',
-      previewData: {
-        status: 'Odometer Verified',
-        items: ['Included Mileage: 600 miles (3 days)', 'Excess Rate: $0.35/mile', 'Tire Wear Check: Passed (5mm tread)']
+        status: 'Indikator Bensin Tercatat',
+        items: ['Bensin Awal: Siap Jalan', 'Angka Odometer Tercatat', 'Kondisi Angin Ban: Pas & Siap Nanjak']
       }
     },
     {
       id: 'signoff',
-      title: 'Dual Digital Confirmation',
-      icon: CheckCircle2,
-      tag: 'Deposit Lock & Release',
-      description: 'Both the owner and rider tap "Confirm Handover" on their phones. At return, the identical checklist unlocks the pre-authorized security deposit within 48h.',
-      actionDetail: 'Signatures logged with time-stamped hash.',
+      title: 'Serah Terima Kunci & Siap Jalan',
+      icon: KeyRound,
+      tag: 'Kunci Diserahkan',
+      description: 'Penyewa menerima kunci kontak / smart key dan tips rute wisata Bandung terfavorit dari staf Misionary. Anda siap menjelajah Bandung dengan tenang.',
+      actionDetail: 'Motor resmi diserahterimakan, selamat menikmati Bandung!',
       previewData: {
-        status: 'Both Parties Confirmed',
-        items: ['Owner Signature: Marcus T. (10:14 AM)', 'Renter Signature: Alex H. (10:15 AM)', 'Security Deposit: Pre-Auth Held Active']
+        status: 'Serah Terima Selesai',
+        items: ['Kunci Kontak / Remote Smart Key Diberikan', 'Kontak Darurat Staf Misionary Siaga 24 Jam', 'E-KTP Disimpan Aman Sebagai Jaminan']
       }
     }
   ];
@@ -64,14 +64,14 @@ export const InspectionWalkthrough: React.FC = () => {
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <div className="inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider text-[#A0844B] mb-2">
-            <Camera className="w-4 h-4" />
-            PRD Screen 04 · Handover Inspection Protocol
+            <ShieldCheck className="w-4 h-4" />
+            Standar Pelayanan Misionary Bandung
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-[#212121] tracking-tight">
-            Mandatory Photo Inspection At Handover & Return
+            Prosedur Serah Terima Aman & Transparan
           </h2>
           <p className="text-[15px] text-[#555555] mt-2">
-            Dispute protection for both sides. Renters are protected from pre-existing blemishes; owners are protected against damage before security deposit release.
+            Proses serah terima cepat hanya 3-5 menit. Memastikan motor yang Anda terima dalam kondisi prima, bersih, dan siap diajak keliling Bandung.
           </p>
 
           {/* Toggle between Handover and Return mode */}
@@ -82,7 +82,7 @@ export const InspectionWalkthrough: React.FC = () => {
                 inspectionMode === 'handover' ? 'bg-[#212121] text-white' : 'text-[#555555] hover:text-[#212121]'
               }`}
             >
-              Handover Inspection (Pickup)
+              Serah Terima (Pengambilan Motor)
             </button>
             <button
               onClick={() => setInspectionMode('return')}
@@ -90,12 +90,12 @@ export const InspectionWalkthrough: React.FC = () => {
                 inspectionMode === 'return' ? 'bg-[#212121] text-white' : 'text-[#555555] hover:text-[#212121]'
               }`}
             >
-              Return Inspection (Deposit Release)
+              Pengembalian Unit (Selesai Sewa)
             </button>
           </div>
         </div>
 
-        {/* Interactive inspection interactive box */}
+        {/* Interactive inspection box */}
         <div className="bg-[#F0F2F4] border border-gray-300 rounded-[6px] p-6 lg:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Step navigation tabs (5 cols) */}
@@ -123,11 +123,11 @@ export const InspectionWalkthrough: React.FC = () => {
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="text-[11px] font-bold uppercase tracking-wider text-[#A0844B]">
-                          Step 0{idx + 1}
+                          Langkah 0{idx + 1}
                         </span>
                         {isSelected && (
                           <span className="text-[10px] bg-[#A0844B]/15 text-[#886a34] font-semibold px-1.5 py-0.2 rounded">
-                            Active Step
+                            Aktif
                           </span>
                         )}
                       </div>
@@ -152,7 +152,7 @@ export const InspectionWalkthrough: React.FC = () => {
                   </div>
                   <div>
                     <span className="text-[11px] font-semibold uppercase text-[#A0844B] block">
-                      {inspectionMode === 'handover' ? 'Pre-Ride Checklist' : 'Post-Ride Return Verification'}
+                      {inspectionMode === 'handover' ? 'Checklist Serah Terima Unit' : 'Pemeriksaan Selesai Sewa'}
                     </span>
                     <h3 className="text-lg font-bold text-[#212121]">
                       {current.title}
@@ -169,10 +169,10 @@ export const InspectionWalkthrough: React.FC = () => {
                 {current.description}
               </p>
 
-              {/* Checklist checklist items */}
+              {/* Verification items */}
               <div className="space-y-2 bg-[#F0F2F4] p-4 rounded-[4px] mb-5">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-[#555555] mb-1">
-                  Verification Records:
+                  Poin Pemeriksaan Standar:
                 </div>
                 {current.previewData.items.map((item, i) => (
                   <div key={i} className="flex items-center justify-between text-[13px]">
@@ -181,7 +181,7 @@ export const InspectionWalkthrough: React.FC = () => {
                       {item}
                     </span>
                     <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
-                      Verified
+                      Sesuai Standar
                     </span>
                   </div>
                 ))}
@@ -196,7 +196,7 @@ export const InspectionWalkthrough: React.FC = () => {
                   onClick={() => setActiveStep((activeStep + 1) % inspectionSteps.length)}
                   className="text-[#A0844B] hover:text-[#8b713c] font-semibold flex items-center gap-1 cursor-pointer"
                 >
-                  Next Step <ArrowRight className="w-3.5 h-3.5" />
+                  Langkah Berikutnya <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
@@ -206,3 +206,4 @@ export const InspectionWalkthrough: React.FC = () => {
     </section>
   );
 };
+

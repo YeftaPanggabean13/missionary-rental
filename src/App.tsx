@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { TrustStatsBanner } from './components/TrustStatsBanner';
 import { SearchAndBrowse } from './components/SearchAndBrowse';
 import { BikeDetailModal } from './components/BikeDetailModal';
-import { InspectionWalkthrough } from './components/InspectionWalkthrough';
-import { OwnerEarningsSection } from './components/OwnerEarningsSection';
-import { MarketplaceDashboardsPreview } from './components/MarketplaceDashboardsPreview';
 import { HowItWorks } from './components/HowItWorks';
 import { Testimonials } from './components/Testimonials';
 import { FaqSection } from './components/FaqSection';
@@ -30,10 +26,16 @@ export default function App() {
     }, 5000);
   };
 
-  const handleHeroSearch = (city: string, category: BikeCategory | 'All', dateRange: string) => {
-    setSearchCity(city);
-    setSearchCategory(category);
-    showNotification(`Filtering for ${category} motorcycles in ${city} for ${dateRange}`);
+  const handleHeaderSearch = (query: string) => {
+    // If the query mentions a specific area, set it
+    const areas = ['Stasiun Bandung', 'Dago', 'Lembang', 'Pasteur', 'Braga', 'Ciwidey', 'Whoosh'];
+    const matchedArea = areas.find((a) => query.toLowerCase().includes(a.toLowerCase()));
+    if (matchedArea) {
+      setSearchCity(matchedArea);
+    } else {
+      setSearchCity('All');
+    }
+    showNotification(`Mencari armada di Bandung: "${query}"`);
     const browseElem = document.getElementById('browse');
     if (browseElem) {
       browseElem.scrollIntoView({ behavior: 'smooth' });
@@ -48,11 +50,11 @@ export default function App() {
   };
 
   const handleBookingSubmitted = (summary: any) => {
-    showNotification(`Booking request for ${summary.bike.make} ${summary.bike.model} sent to ${summary.bike.owner.name}!`);
+    showNotification(`Pemesanan ${summary.bike.make} ${summary.bike.model} berhasil dikirim ke Admin WhatsApp Misionary!`);
   };
 
   const handleListingCreated = (listing: any) => {
-    showNotification(`Listing for ${listing.year} ${listing.make} ${listing.model} submitted for verification!`);
+    showNotification(`Pendaftaran unit ${listing.year} ${listing.make} ${listing.model} berhasil dikirim! Admin akan segera menghubungi via WhatsApp.`);
   };
 
   return (
@@ -65,25 +67,22 @@ export default function App() {
         </div>
       )}
 
-      {/* Header */}
+      {/* Header matching screenshot */}
       <Header
         onNavigate={handleNavigate}
         onOpenListModal={() => setIsListModalOpen(true)}
+        onSearch={handleHeaderSearch}
       />
 
-      {/* Main Content Sections */}
+      {/* Main Content: Clean, uncluttered, focused */}
       <main className="flex-1">
-        {/* Hero Section */}
+        {/* Hero Section matching user screenshot: Bold Inter font, centered, no small badges */}
         <Hero
-          onSearch={handleHeroSearch}
-          onLearnMore={() => handleNavigate('how-it-works')}
-          onOpenListModal={() => setIsListModalOpen(true)}
+          onExploreClick={() => handleNavigate('browse')}
+          onHowItWorksClick={() => handleNavigate('how-it-works')}
         />
 
-        {/* Brand Pillars & Trust Strip */}
-        <TrustStatsBanner />
-
-        {/* PRD Screen 01: Browse & Search Catalog */}
+        {/* Motorcycle Catalog & Filter */}
         <SearchAndBrowse
           bikes={MOTORBIKES}
           onSelectBike={(bike) => setSelectedBike(bike)}
@@ -91,31 +90,20 @@ export default function App() {
           initialCategory={searchCategory}
         />
 
-        {/* PRD Screen 04: Handover & Return Photo Inspection */}
-        <InspectionWalkthrough />
-
-        {/* PRD Screen 06 & Brand Guideline: Owner Earnings Calculator */}
-        <OwnerEarningsSection
-          onOpenListModal={() => setIsListModalOpen(true)}
-        />
-
-        {/* PRD Screen 05 & 06: Interactive Dashboards Preview */}
-        <MarketplaceDashboardsPreview />
-
-        {/* How It Works (Renter & Owner) */}
+        {/* 3-Step Simple Rental Process */}
         <HowItWorks
           onRentClick={() => handleNavigate('browse')}
           onListClick={() => setIsListModalOpen(true)}
         />
 
-        {/* Authentic Testimonials */}
+        {/* Authentic Reviews */}
         <Testimonials />
 
-        {/* Straightforward Minimal FAQ */}
+        {/* FAQ */}
         <FaqSection />
       </main>
 
-      {/* Dense Brand Footer */}
+      {/* Clean Brand Footer */}
       <Footer
         onCityClick={(city) => {
           setSearchCity(city);
@@ -124,14 +112,14 @@ export default function App() {
         onNavigate={handleNavigate}
       />
 
-      {/* PRD Screen 02 & 03: Bike Detail & Booking Request Modal */}
+      {/* Bike Detail & Booking Request Modal */}
       <BikeDetailModal
         bike={selectedBike}
         onClose={() => setSelectedBike(null)}
         onRequestSubmitted={handleBookingSubmitted}
       />
 
-      {/* List Your Motorcycle (~5 Min Flow) */}
+      {/* List Your Motorcycle Modal */}
       <ListBikeModal
         isOpen={isListModalOpen}
         onClose={() => setIsListModalOpen(false)}
@@ -140,3 +128,4 @@ export default function App() {
     </div>
   );
 }
+

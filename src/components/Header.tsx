@@ -1,125 +1,131 @@
 import React, { useState } from 'react';
-import { Menu, X, Shield, KeyRound, PlusCircle, Search } from 'lucide-react';
+import { Menu, X, Search, Globe, ChevronDown, MessageCircle } from 'lucide-react';
+import missionaryLogoWhite from '../img/missionary-horizontal-white.png';
 
 interface HeaderProps {
   onNavigate: (sectionId: string) => void;
   onOpenListModal: () => void;
+  onSearch?: (query: string) => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenListModal }) => {
+export const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenListModal, onSearch }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleNavClick = (id: string) => {
     onNavigate(id);
     setMobileMenuOpen(false);
   };
 
-  return (
-    <header className="sticky top-0 z-40 bg-[#212121] text-white border-b border-[#333333] shadow-md">
-      {/* Top trust bar */}
-      <div className="bg-[#181818] border-b border-[#2a2a2a] text-[12px] py-1.5 px-4">
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between text-[#B5B5B5]">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 text-white">
-              <Shield className="w-3.5 h-3.5 text-[#A0844B]" />
-              $1,000,000 Liability Coverage Included
-            </span>
-            <span className="hidden sm:inline-block text-[#555555]">|</span>
-            <span className="hidden sm:inline-block">Pre-Authorized Security Deposits (Not Charged Upfront)</span>
-          </div>
-          <div className="flex items-center gap-4 text-[12px]">
-            <span className="hidden md:inline text-[#B5B5B5]">Need help? (800) 555-ROAD</span>
-            <button
-              onClick={() => handleNavClick('safety')}
-              className="text-[#B5B5B5] hover:text-white transition-colors cursor-pointer"
-            >
-              Trust & Safety
-            </button>
-          </div>
-        </div>
-      </div>
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (onSearch && searchQuery.trim()) {
+      onSearch(searchQuery.trim());
+    }
+    onNavigate('browse');
+    setMobileMenuOpen(false);
+  };
 
-      {/* Main navigation */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18">
-          {/* Brand script logo */}
-          <div className="flex items-center gap-6">
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent('Halo Admin Misionary Rental Motor Bandung, saya ingin tanya ketersediaan unit motor...');
+    window.open(`https://wa.me/6281234567890?text=${message}`, '_blank');
+  };
+
+  return (
+    <header className="sticky top-0 z-50 bg-[#212121] text-white border-b border-[#333333] shadow-md">
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-18 gap-4">
+          {/* Left: Brand logo + Search Pill */}
+          <div className="flex items-center gap-6 lg:gap-8 flex-1">
             <button
               onClick={() => handleNavClick('hero')}
-              className="group text-left cursor-pointer flex items-baseline gap-1"
+              className="text-left cursor-pointer flex items-center shrink-0 group py-1"
               id="header-brand-logo"
+              title="Misionary Rental Motor Bandung"
             >
-              <span className="font-script text-3xl sm:text-4xl text-white tracking-wide group-hover:text-[#A0844B] transition-colors">
-                Twisted Road
-              </span>
-              <span className="w-1.5 h-1.5 bg-[#A0844B] rounded-full ml-0.5"></span>
+              <img
+                src={missionaryLogoWhite}
+                alt="Misionary Rental Motor Bandung"
+                className="h-8 sm:h-9 w-auto object-contain transition-opacity group-hover:opacity-85"
+              />
             </button>
-            <span className="hidden lg:inline-block text-[11px] uppercase tracking-wider text-[#888888] font-medium border-l border-[#3a3a3a] pl-4 py-1">
-              Motorcycle Marketplace
-            </span>
+
+            {/* Pill Search Bar (exactly matching screenshot) */}
+            <form
+              onSubmit={handleSearchSubmit}
+              className="hidden md:flex items-center bg-[#2a2a2a] border border-[#444444] rounded-full pl-3.5 pr-1 py-1 focus-within:border-[#A0844B] transition-colors w-72 lg:w-96"
+            >
+              <Globe className="w-4 h-4 text-[#888888] shrink-0 mr-2" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Cari lokasi atau motor di Bandung..."
+                className="bg-transparent text-white text-[13px] placeholder-[#888888] focus:outline-none w-full"
+              />
+              <button
+                type="submit"
+                className="w-7 h-7 rounded-full bg-[#F8E01A] hover:bg-[#e7d117] text-[#212121] flex items-center justify-center shrink-0 cursor-pointer transition-colors"
+                aria-label="Cari"
+              >
+                <Search className="w-3.5 h-3.5 stroke-[2.5]" />
+              </button>
+            </form>
           </div>
 
-          {/* Desktop Links */}
-          <nav className="hidden md:flex items-center gap-6 text-[14px] font-medium">
+          {/* Right: Nav items matching screenshot */}
+          <div className="hidden lg:flex items-center gap-6 text-[14px] font-semibold">
+            {/* Yellow CTA Button like 'Calculate Earnings' in screenshot */}
             <button
               onClick={() => handleNavClick('browse')}
-              className="text-[#E0E0E0] hover:text-white transition-colors cursor-pointer flex items-center gap-1.5 py-1"
+              className="bg-[#F8E01A] hover:bg-[#e7d117] text-[#212121] font-bold text-[13px] px-4 py-2 rounded-[4px] transition-colors cursor-pointer shadow-xs"
             >
-              <Search className="w-4 h-4 text-[#A0844B]" />
-              Find a Motorcycle
+              Pesan Motor
             </button>
-            <button
-              onClick={() => handleNavClick('how-it-works')}
-              className="text-[#B5B5B5] hover:text-white transition-colors cursor-pointer py-1"
-            >
-              How It Works
-            </button>
-            <button
-              onClick={() => handleNavClick('inspection')}
-              className="text-[#B5B5B5] hover:text-white transition-colors cursor-pointer py-1"
-            >
-              Photo Inspection
-            </button>
-            <button
-              onClick={() => handleNavClick('earnings')}
-              className="text-[#B5B5B5] hover:text-white transition-colors cursor-pointer py-1"
-            >
-              Owner Earnings
-            </button>
-            <button
-              onClick={() => handleNavClick('dashboards')}
-              className="text-[#B5B5B5] hover:text-white transition-colors cursor-pointer py-1"
-            >
-              Platform Demo
-            </button>
-          </nav>
 
-          {/* Header Actions */}
-          <div className="hidden sm:flex items-center gap-3">
-            <button
-              onClick={() => handleNavClick('browse')}
-              className="text-[13px] font-semibold text-white px-3.5 py-2 border border-white/30 rounded-[4px] hover:border-white transition-colors cursor-pointer"
-              id="header-rent-btn"
-            >
-              Rent a Bike
-            </button>
             <button
               onClick={onOpenListModal}
-              className="bg-[#A0844B] hover:bg-[#8f743f] text-white text-[13px] font-semibold px-4 py-2 rounded-[4px] transition-colors flex items-center gap-1.5 cursor-pointer shadow-sm"
-              id="header-list-bike-btn"
+              className="text-[#E0E0E0] hover:text-white transition-colors cursor-pointer"
             >
-              <PlusCircle className="w-4 h-4" />
-              List Your Motorcycle
+              Titip Motor
             </button>
+
+            <button
+              onClick={() => handleNavClick('browse')}
+              className="text-[#E0E0E0] hover:text-white transition-colors cursor-pointer"
+            >
+              Pilihan Motor
+            </button>
+
+            <button
+              onClick={() => handleNavClick('how-it-works')}
+              className="text-[#E0E0E0] hover:text-white transition-colors cursor-pointer flex items-center gap-1"
+            >
+              Cara Sewa
+              <ChevronDown className="w-3.5 h-3.5 text-[#888888]" />
+            </button>
+
+            <button
+              onClick={handleWhatsAppClick}
+              className="text-[#E0E0E0] hover:text-white transition-colors cursor-pointer"
+            >
+              WhatsApp
+            </button>
+
+            {/* Language/Globe icon */}
+            <div className="flex items-center text-[#B5B5B5] hover:text-white cursor-pointer gap-1 text-[13px]">
+              <Globe className="w-4 h-4" />
+              <span>IDR</span>
+            </div>
           </div>
 
           {/* Mobile hamburger */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="lg:hidden flex items-center gap-2">
             <button
-              onClick={onOpenListModal}
-              className="bg-[#A0844B] text-white text-[12px] font-semibold px-2.5 py-1.5 rounded-[4px]"
+              onClick={() => handleNavClick('browse')}
+              className="bg-[#F8E01A] text-[#212121] font-bold text-[12px] px-3 py-1.5 rounded-[4px]"
             >
-              List Bike
+              Pesan Motor
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -134,54 +140,63 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenListModal }) =
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#1a1a1a] border-b border-[#333333] px-4 pt-3 pb-6 space-y-3">
+        <div className="lg:hidden bg-[#1c1c1c] border-b border-[#333333] px-4 pt-3 pb-6 space-y-3">
+          {/* Mobile search */}
+          <form onSubmit={handleSearchSubmit} className="flex items-center bg-[#2a2a2a] border border-[#444444] rounded-full pl-3.5 pr-1 py-1 mb-3">
+            <Search className="w-4 h-4 text-[#888888] mr-2 shrink-0" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Cari lokasi atau motor..."
+              className="bg-transparent text-white text-[13px] placeholder-[#888888] focus:outline-none w-full"
+            />
+            <button
+              type="submit"
+              className="w-7 h-7 rounded-full bg-[#F8E01A] text-[#212121] flex items-center justify-center shrink-0"
+            >
+              <Search className="w-3.5 h-3.5 stroke-[2.5]" />
+            </button>
+          </form>
+
           <button
             onClick={() => handleNavClick('browse')}
-            className="w-full text-left px-3 py-2 text-white font-medium hover:bg-[#252525] rounded-[4px] flex items-center gap-2"
+            className="w-full text-left px-3 py-2 text-white font-medium hover:bg-[#252525] rounded-[4px]"
           >
-            <Search className="w-4 h-4 text-[#A0844B]" />
-            Find a Motorcycle
+            Pilihan Motor & Tarif
           </button>
           <button
             onClick={() => handleNavClick('how-it-works')}
             className="w-full text-left px-3 py-2 text-[#B5B5B5] hover:text-white font-medium hover:bg-[#252525] rounded-[4px]"
           >
-            How It Works
+            Cara Sewa 3 Langkah
           </button>
           <button
-            onClick={() => handleNavClick('inspection')}
+            onClick={() => {
+              onOpenListModal();
+              setMobileMenuOpen(false);
+            }}
             className="w-full text-left px-3 py-2 text-[#B5B5B5] hover:text-white font-medium hover:bg-[#252525] rounded-[4px]"
           >
-            Mandatory Photo Inspection
+            Program Titip Motor Bandung
           </button>
           <button
-            onClick={() => handleNavClick('earnings')}
+            onClick={() => handleNavClick('faq')}
             className="w-full text-left px-3 py-2 text-[#B5B5B5] hover:text-white font-medium hover:bg-[#252525] rounded-[4px]"
           >
-            Owner Earnings Calculator
-          </button>
-          <button
-            onClick={() => handleNavClick('dashboards')}
-            className="w-full text-left px-3 py-2 text-[#B5B5B5] hover:text-white font-medium hover:bg-[#252525] rounded-[4px]"
-          >
-            Renter & Owner Dashboards
-          </button>
-          <button
-            onClick={() => handleNavClick('safety')}
-            className="w-full text-left px-3 py-2 text-[#B5B5B5] hover:text-white font-medium hover:bg-[#252525] rounded-[4px]"
-          >
-            Trust & Safety ($1M Liability)
+            Tanya Jawab (FAQ)
           </button>
 
-          <div className="pt-2 border-t border-[#333333] flex flex-col gap-2">
+          <div className="pt-2 border-t border-[#333333]">
             <button
               onClick={() => {
-                onOpenListModal();
+                handleWhatsAppClick();
                 setMobileMenuOpen(false);
               }}
-              className="w-full bg-[#A0844B] text-white py-2.5 rounded-[4px] text-center font-semibold text-sm"
+              className="w-full bg-[#A0844B] text-white py-2.5 rounded-[4px] text-center font-semibold text-sm flex items-center justify-center gap-2"
             >
-              List Your Motorcycle (Free)
+              <MessageCircle className="w-4 h-4" />
+              Hubungi via WhatsApp
             </button>
           </div>
         </div>
@@ -189,3 +204,6 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, onOpenListModal }) =
     </header>
   );
 };
+
+
+
