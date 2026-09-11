@@ -1,0 +1,6 @@
+{
+  "name": "Twisted Road - Motorcycle Rental Marketplace",
+  "description": "Rent real motorcycles from verified local owners with transparent pricing, pre-authorized security deposits, and handover inspection protection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

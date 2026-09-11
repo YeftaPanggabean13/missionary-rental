@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-script {
+    font-family: 'Kaushan Script', cursive;
+  }
+}
