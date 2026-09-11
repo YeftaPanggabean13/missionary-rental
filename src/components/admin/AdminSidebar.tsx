@@ -13,8 +13,6 @@ import {
   ShieldCheck,
   UserCheck
 } from 'lucide-react';
-import missionaryHorizontalWhite from '../../img/missionary-horizontal-white.png';
-import missionaryMarkWhite from '../../img/missionary-mark-white.png';
 
 export type AdminNavSection =
   | 'overview'
@@ -129,7 +127,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
         {isCollapsed ? (
           <div className="w-full flex justify-center" title="Misionary Rental Bandung">
             <img
-              src={missionaryMarkWhite}
+              src="/img/missionary-mark-white.png"
               alt="Misionary"
               className="h-7 w-auto object-contain opacity-95"
             />
@@ -137,7 +135,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
         ) : (
           <div className="flex flex-col justify-center">
             <img
-              src={missionaryHorizontalWhite}
+              src="/img/missionary-horizontal-white.png"
               alt="Misionary Rental Bandung"
               className="h-6 w-auto object-contain self-start opacity-95"
             />

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Lock, Eye, EyeOff, ArrowLeft } from 'lucide-react';
-import missionaryLogoWhite from '../img/missionary-horizontal-white.png';
 
 interface AdminLoginProps {
   onLoginSuccess: (token: string) => void;
@@ -60,7 +59,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onBack }
           {/* Logo */}
           <div className="flex justify-center mb-6">
             <img
-              src={missionaryLogoWhite}
+              src="/img/missionary-horizontal-white.png"
               alt="Misionary"
               className="h-8 w-auto object-contain opacity-70"
             />
