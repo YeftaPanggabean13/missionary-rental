@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, MessageSquare } from 'lucide-react';
-import missionaryLogoWhite from '../img/missionary-horizontal-white.png';
 
 interface FooterProps {
   onCityClick: (city: string) => void;
@@ -28,7 +27,7 @@ export const Footer: React.FC<FooterProps> = ({ onCityClick, onNavigate, onOpenT
           <div>
             <div className="mb-3.5">
               <img
-                src={missionaryLogoWhite}
+                src="/img/missionary-horizontal-white.png"
                 alt="Misionary Rental Motor Bandung"
                 className="h-9 sm:h-10 w-auto object-contain"
               />

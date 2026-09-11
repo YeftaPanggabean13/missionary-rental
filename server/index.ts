@@ -25,7 +25,8 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
-const PORT = process.env.API_PORT ? parseInt(process.env.API_PORT) : 5001;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : process.env.API_PORT ? parseInt(process.env.API_PORT, 10) : 5001;
+const HOST = process.env.NODE_ENV === 'production' || process.env.PORT ? '0.0.0.0' : '127.0.0.1';
 
 // Admin PIN (configurable via env, default for development)
 const ADMIN_PIN = process.env.ADMIN_PIN || 'misionary2026';
@@ -386,7 +387,7 @@ app.post('/api/admin/database/query', requireAdmin, (req, res) => {
 // Start server
 // ──────────────────────────────────────────
 
-app.listen(PORT, '127.0.0.1', () => {
-  console.log(`[Misionary API] Server berjalan di http://localhost:${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`[Misionary API] Server berjalan di http://${HOST}:${PORT}`);
   console.log(`[Misionary API] Admin PIN: ${ADMIN_PIN}`);
 });

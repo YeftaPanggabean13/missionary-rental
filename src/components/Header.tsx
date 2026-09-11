@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Menu, X, Search, Globe, ChevronDown, MessageCircle, Clock, Shield } from 'lucide-react';
-import missionaryLogoWhite from '../img/missionary-horizontal-white.png';
 
 interface HeaderProps {
   onNavigate: (sectionId: string) => void;
@@ -52,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({
               title="Misionary Rental Motor Bandung"
             >
               <img
-                src={missionaryLogoWhite}
+                src="/img/missionary-horizontal-white.png"
                 alt="Misionary Rental Motor Bandung"
                 className="h-8 sm:h-9 w-auto object-contain transition-opacity group-hover:opacity-85"
               />

@@ -1,6 +1,5 @@
 import React from 'react';
 import { X, Printer, MessageSquare } from 'lucide-react';
-import missionaryLogoDark from '../../img/missionary-horizontal-white.png';
 
 interface Booking {
   id: number;
@@ -90,7 +89,7 @@ export const InvoiceModal: React.FC<InvoiceModalProps> = ({ booking, onClose }) 
           <div className="flex justify-between items-start border-b border-gray-300 pb-4">
             <div>
               <div className="bg-[#212121] px-3 py-1 rounded inline-block mb-2">
-                <img src={missionaryLogoDark} alt="Misionary" className="h-6 w-auto object-contain" />
+                <img src="/img/missionary-horizontal-white.png" alt="Misionary" className="h-6 w-auto object-contain" />
               </div>
               <p className="font-bold text-[#212121] text-sm">Misionary Rental Motor Bandung</p>
               <p className="text-[#666666]">Jl. Pasirkaliki No. 88, Cicendo, Kota Bandung</p>

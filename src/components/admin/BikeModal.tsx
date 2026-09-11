@@ -5,14 +5,14 @@ interface BikeData {
   id?: string;
   make: string;
   model: string;
-  year: number;
-  category: string;
-  area: string;
+  year?: number;
+  category?: string;
+  area?: string;
   dailyRate: number;
   platNomor: string;
-  engineDisplacement: string;
-  fuelConsumption: string;
-  transmission: string;
+  engineDisplacement?: string;
+  fuelConsumption?: string;
+  transmission?: string;
   status: string;
   unitCondition?: string;
 }

@@ -1,9 +1,4 @@
 import { Motorbike, TestimonialItem, FaqItem } from '../types';
-import beatImg from '../img/beat.jpg';
-import scoppyImg from '../img/scoppy.jpg';
-import variImg from '../img/vari.jpg';
-import nmaxImg from '../img/nmax.jpg';
-import aeroxImg from '../img/aerox.jpg';
 
 export const MOTORBIKES: Motorbike[] = [
   {
@@ -19,7 +14,7 @@ export const MOTORBIKES: Motorbike[] = [
     fuelConsumption: '60.6 km / liter (Paling Irit)',
     transmission: 'Otomatis (CVT)',
     trunkCapacity: '12 Liter',
-    images: [beatImg],
+    images: ['/img/beat.jpg'],
     facilities: ['2 Helm SNI Bersih & Wangi', '2 Jas Hujan Setelan', 'Phone Holder Stang Kokoh', 'STNK Asli Resmi', 'Bensin Awal Ready to Ride'],
     description: 'Skutik terlaris dan paling lincah di Bandung. Sangat hemat bahan bakar, enteng dikendarai, dan lincah menembus kepadatan lalu lintas kota Bandung.',
     bestFor: 'Keliling kota Bandung, mobilitas harian hemat, & kulineran santai',
@@ -42,7 +37,7 @@ export const MOTORBIKES: Motorbike[] = [
     fuelConsumption: '59 km / liter',
     transmission: 'Otomatis (CVT)',
     trunkCapacity: '15.4 Liter',
-    images: [scoppyImg],
+    images: ['/img/scoppy.jpg'],
     facilities: ['2 Helm Retro SNI Bersih', '2 Jas Hujan Setelan', 'Phone Holder Stang Alumunium', 'Smart Key & Alarm', 'STNK Asli Resmi'],
     description: 'Desain retro fashionable yang sangat digemari muda-mudi Bandung. Dilengkapi Smart Key System, charger HP di laci, dan pijakan kaki luas.',
     bestFor: 'Wisata santai, cafe hopping Dago & Braga, & foto estetik',
@@ -65,7 +60,7 @@ export const MOTORBIKES: Motorbike[] = [
     fuelConsumption: '51.7 km / liter',
     transmission: 'Otomatis (CVT)',
     trunkCapacity: '18 Liter (Muat Helm)',
-    images: [variImg],
+    images: ['/img/vari.jpg'],
     facilities: ['2 Helm SNI Bersih', '2 Jas Hujan Setelan', 'Phone Holder Stang Kokoh', 'Bagasi Luas 18L', 'STNK Asli Resmi'],
     description: 'Skutik serbaguna dengan tarikan bertenaga dan pendingin radiator. Sangat stabil dan bertenaga kuat untuk nanjak ke arah Setiabudi, Lembang, dan Punclut.',
     bestFor: 'Keliling kota, tanjakan Lembang & Punclut, harian nyaman',
@@ -87,7 +82,7 @@ export const MOTORBIKES: Motorbike[] = [
     fuelConsumption: '42 km / liter',
     transmission: 'Otomatis (CVT)',
     trunkCapacity: '24 Liter (Muat 2 Helm)',
-    images: [nmaxImg],
+    images: ['/img/nmax.jpg'],
     facilities: ['2 Helm SNI Bersih & Wangi', '2 Jas Hujan Setelan Tebal', 'Phone Holder Stang', 'Suspensi Belakang Sub-Tank', 'STNK Asli Resmi'],
     description: 'Maxi scooter paling nyaman untuk touring liburan jarak jauh di Bandung. Posisi kaki bisa selonjoran santai, suspensi tabung empuk, dan bertenaga besar di tanjakan.',
     bestFor: 'Touring ke Tangkuban Perahu, Kawah Putih Ciwidey, & Pangalengan',
@@ -110,7 +105,7 @@ export const MOTORBIKES: Motorbike[] = [
     fuelConsumption: '43 km / liter',
     transmission: 'Otomatis (CVT)',
     trunkCapacity: '25 Liter',
-    images: [aeroxImg],
+    images: ['/img/aerox.jpg'],
     facilities: ['2 Helm SNI Bersih', '2 Jas Hujan Setelan', 'Phone Holder Stang Kokoh', 'Speedometer Digital Connected', 'STNK Asli Resmi'],
     description: 'Skutik Maxi bernuansa super sport dengan akselerasi responsif dan handling presisi. Tampilan agresif dan sporty, sangat digemari untuk Sunmori di Bandung.',
     bestFor: 'Sunmori Lembang - Ciater Subang & keliling kota dengan gaya sporty',

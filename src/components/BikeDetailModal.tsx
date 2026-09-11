@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Motorbike } from '../types';
 import { X, Star, ShieldCheck, MapPin, Calendar, Check, AlertCircle, CheckCircle2, ChevronRight, Upload, Info, MessageCircle, Phone } from 'lucide-react';
-import missionaryLogoWhite from '../img/missionary-horizontal-white.png';
 
 interface BikeDetailModalProps {
   bike: Motorbike | null;
@@ -122,7 +121,7 @@ export const BikeDetailModal: React.FC<BikeDetailModalProps> = ({ bike, onClose,
         <div className="bg-[#212121] text-white px-5 py-3.5 flex items-center justify-between border-b border-[#333333]">
           <div className="flex items-center gap-3">
             <img
-              src={missionaryLogoWhite}
+              src="/img/missionary-horizontal-white.png"
               alt="Misionary"
               className="h-5 sm:h-6 w-auto object-contain"
             />
@@ -198,7 +197,7 @@ export const BikeDetailModal: React.FC<BikeDetailModalProps> = ({ bike, onClose,
 
               <div className="flex flex-col sm:flex-row justify-center gap-3">
                 <button
-                  onClick={handleSendWhatsApp}
+                  onClick={() => handleSendWhatsApp()}
                   className="bg-[#25D366] hover:bg-[#20bd5a] text-white text-[14px] font-bold px-6 py-2.5 rounded-[4px] flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                 >
                   <MessageCircle className="w-4 h-4" />
@@ -528,7 +527,7 @@ export const BikeDetailModal: React.FC<BikeDetailModalProps> = ({ bike, onClose,
                   <div className="space-y-2 pt-1">
                     <button
                       type="button"
-                      onClick={handleSendWhatsApp}
+                      onClick={() => handleSendWhatsApp()}
                       className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-[14px] py-2.5 rounded-[4px] transition-colors shadow-sm cursor-pointer flex items-center justify-center gap-2"
                     >
                       <MessageCircle className="w-4 h-4" />
