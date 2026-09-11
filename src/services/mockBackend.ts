@@ -633,8 +633,11 @@ export function initMockBackend(): void {
 
     // Only intercept /api/ requests
     if (urlString.startsWith('/api') || urlString.includes('/api/')) {
+      const remoteApiUrl = (import.meta as any).env?.VITE_API_URL;
+      const targetUrl = remoteApiUrl ? `${remoteApiUrl.replace(/\/$/, '')}${urlString}` : urlString;
+
       try {
-        const response = await originalFetch(input, init);
+        const response = await originalFetch(targetUrl, init);
         // If response is successful or real API error JSON, use it
         const contentType = response.headers.get('content-type') || '';
         if (response.ok || (contentType.includes('application/json') && response.status !== 404)) {
