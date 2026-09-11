@@ -75,47 +75,29 @@ Semua tarif dalam mata uang Rupiah per hari (24 jam) dengan diskon otomatis untu
 
 ---
 
-## 🛠️ Tech Stack & Backend Architecture
+## 🛠️ Tech Stack & Cloud Architecture
 
-* **Frontend Framework**: [React 19](https://react.dev/)
-* **Backend Framework**: [Express.js](https://expressjs.com/) (Node.js REST API pada port `5001`)
-* **Database**: [SQLite](https://sqlite.org/) via `better-sqlite3` di [`data/misionary.db`](file:///c:/missionary-rental/data/misionary.db) (berjalan dalam mode **WAL - Write-Ahead Logging**, sangat cepat, zero-configuration)
-* **Bahasa**: [TypeScript](https://www.typescriptlang.org/) (Full-stack TypeScript)
-* **Runtime Runner**: `tsx` (TypeScript Execute dengan fitur *watch mode*)
-* **Build Tool & Dev Server**: [Vite 6](https://vitejs.dev/) dengan API Proxy ke `http://127.0.0.1:5001`
-* **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+* **Frontend Framework**: [Next.js 16](https://nextjs.org/) (App Router dengan Server & Client Components)
+* **Backend & Cloud Database**: [Convex](https://www.convex.dev/) (Real-time Cloud Database, reactive subscriptions via WebSockets)
+* **Hosting Platform**: [Vercel](https://vercel.com/) (Zero-config native Next.js deployment)
+* **Bahasa**: [TypeScript](https://www.typescriptlang.org/) (Full-stack TypeScript *end-to-end*)
+* **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) dengan `@tailwindcss/postcss`
 * **Ikonografi**: [Lucide React](https://lucide.dev/)
 * **Animasi**: [Motion](https://motion.dev/)
 
 ---
 
-## 🔌 Dokumentasi REST API
+## ⚡ Arsitektur Real-Time Convex (`convex/`)
 
-Backend Express berjalan di port `5001` (diproxy otomatis via Vite di `/api`):
+Convex menggantikan REST API konvensional dengan fungsi kueri & mutasi *type-safe* yang langsung bereaksi terhadap perubahan data:
 
-| Method | Endpoint | Akses | Deskripsi |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/api/health` | Publik | Cek kesehatan status API server |
-| `GET` | `/api/bikes` | Publik | Mendapatkan seluruh katalog motor beserta status ketersediaan |
-| `GET` | `/api/bikes/:id` | Publik | Mendapatkan detail spesifikasi motor berdasarkan ID |
-| `POST` | `/api/bookings` | Publik | Menyimpan pemesanan baru dari pelanggan dan menerbitkan kode tracking |
-| `GET` | `/api/bookings/track/:code` | Publik | Melacak status pesanan berdasarkan kode booking atau nomor HP |
-| `POST` | `/api/admin/login` | Publik | Login admin dengan PIN untuk memperoleh Bearer session token |
-| `GET` | `/api/admin/metrics` | Admin | Ringkasan metrik pendapatan, okupansi, dan pesanan |
-| `GET` | `/api/admin/bookings` | Admin | Daftar seluruh riwayat dan pemesanan aktif |
-| `POST` | `/api/admin/bookings/manual` | Admin | Menambahkan pemesanan manual dari walk-in/telepon |
-| `PATCH` | `/api/admin/bookings/:id/status` | Admin | Memperbarui status pesanan (`PENDING`, `CONFIRMED`, dll.) |
-| `PATCH` | `/api/admin/bookings/:id/payment` | Admin | Memperbarui status pembayaran (`BELUM_BAYAR`, `DP_50`, `LUNAS`) |
-| `POST` | `/api/admin/bikes` | Admin | Menambah unit motor baru ke armada |
-| `PUT` | `/api/admin/bikes/:id` | Admin | Memperbarui detail unit motor |
-| `DELETE` | `/api/admin/bikes/:id` | Admin | Menghapus unit motor dari armada |
-| `PATCH` | `/api/admin/bikes/:id/status` | Admin | Memperbarui status armada (`TERSEDIA`, `DISEWA`, `SERVIS`) |
-| `GET` | `/api/admin/analytics` | Admin | Data agregat grafik omset 7 hari dan ranking utilisasi motor |
-| `GET` | `/api/admin/database/stats` | Admin | Informasi lokasi fisik SQLite, ukuran file, mode WAL, dan total baris |
-| `GET` | `/api/admin/database/table/:name` | Admin | Mengambil rekaman data tabel tertentu untuk Database Explorer |
-| `POST` | `/api/admin/database/query` | Admin | Menjalankan kueri aman (`SELECT`) langsung dari dashboard |
-| `GET` | `/api/admin/database/backup` | Admin | Mengunduh file salinan basis data `misionary.db` |
-| `POST` | `/api/admin/logout` | Admin | Mengakhiri sesi admin |
+| Modul Convex | Jenis | Fungsi & Deskripsi |
+| :--- | :--- | :--- |
+| `convex/bikes.ts` | Query / Mutation | `getAll`, `getById`, `updateStatus`, `addBike`, `updateBike`, `deleteBike`, `seedBikes` |
+| `convex/bookings.ts` | Query / Mutation | `getAll`, `create` (generate kode `MSN-XXXX`), `createManual`, `track`, `updateStatus`, `updatePayment` |
+| `convex/analytics.ts` | Query | `getMetrics` (omset, okupansi, armada aktif), `getAnalyticsData` (grafik tren omset 7 hari) |
+| `convex/auth.ts` | Mutation / Query | `login` (verifikasi PIN admin `misionary2026`), `validateSession`, `logout` |
+| `convex/init.ts` | Mutation | `initData` (auto-seed 5 unit motor resmi dan data transaksi sampel) |
 
 ---
 
@@ -123,94 +105,92 @@ Backend Express berjalan di port `5001` (diproxy otomatis via Vite di `/api`):
 
 ```text
 missionary-rental/
-├── index.html                   # HTML entry point, Google Fonts, & Favicon
-├── package.json                 # Konfigurasi dependensi dan skrip npm
-├── tsconfig.json                # Pengaturan TypeScript
-├── vite.config.ts               # Konfigurasi Vite, Tailwind, & API Proxy ke port 5001
-├── data/
-│   └── misionary.db             # Basis data SQLite fisik lokal (WAL mode)
-├── server/
-│   ├── db.ts                    # Schema SQLite, seed data, migrasi, & fungsi query
-│   └── index.ts                 # Express REST API server, endpoint admin & auth
+├── app/
+│   ├── layout.tsx                # Root layout, Google Inter Font, & ConvexClientProvider
+│   ├── page.tsx                  # Landing page pelanggan publik
+│   ├── admin/
+│   │   └── page.tsx              # Portal admin operasional (/admin) & PIN login
+│   └── globals.css               # Tailwind CSS v4 & tema custom
+├── convex/
+│   ├── schema.ts                 # Definisi skema tabel bikes, bookings, admin_sessions
+│   ├── bikes.ts                  # Logika armada motor (katalog, status ready/disewa)
+│   ├── bookings.ts               # Logika pemesanan, kode tracking, & status sewa
+│   ├── analytics.ts              # Perhitungan metrik bisnis & grafik tren omset
+│   ├── auth.ts                   # Autentikasi PIN admin (misionary2026)
+│   └── init.ts                   # Inisialisasi otomatis data awal di cloud
+├── public/
+│   └── img/                      # Aset gambar resmi motor & logo transparan
 ├── src/
-│   ├── main.tsx                 # Titik masuk aplikasi React
-│   ├── App.tsx                  # Router utama (Publik di /, Admin di /admin)
-│   ├── index.css                # Konfigurasi Tailwind & tema dark palette
-│   ├── types.ts                 # TypeScript interface (Motorbike, Review, Booking, dll.)
-│   ├── vite-env.d.ts            # Deklarasi modul gambar (*.jpg, *.png, *.webp)
+│   ├── components/
+│   │   ├── ConvexClientProvider.tsx  # Client provider Convex
+│   │   ├── Header.tsx           # Navigasi atas publik & tombol Cek Pesanan / Admin
+│   │   ├── Hero.tsx             # Banner utama & headline single-line
+│   │   ├── SearchAndBrowse.tsx  # Katalog 5 armada motor & filter tarif
+│   │   ├── BikeDetailModal.tsx  # Modal detail motor & submit booking
+│   │   ├── BookingTrackModal.tsx# Modal pelacakan pesanan mandiri bagi pelanggan
+│   │   ├── AdminLogin.tsx       # Halaman login PIN portal admin operasional
+│   │   ├── AdminDashboard.tsx   # Container utama portal admin berstandar internasional
+│   │   └── admin/
+│   │       ├── AdminSidebar.tsx         # Sidebar navigasi (Expanded & Compact 72px)
+│   │       ├── AdminTopbar.tsx          # Topbar minimalis, toggle compact & judul bersih
+│   │       ├── OverviewTab.tsx          # Tab Dashboard & KPI Cards
+│   │       ├── AnalyticsTab.tsx         # Tab Analitik & Grafik Tren Omset SVG
+│   │       ├── DatabaseExplorerTab.tsx  # Tab Inspeksi Data & Ekspor JSON
+│   │       ├── ScheduleCalendarTab.tsx  # Tab Kalender Jadwal Alokasi 14 Hari
+│   │       ├── SettingsTab.tsx          # Tab Diagnostik Sistem & Backup
+│   │       ├── ManualBookingModal.tsx   # Modal Input Pemesanan Manual (Walk-in)
+│   │       ├── InvoiceModal.tsx         # Modal Struk Resmi & Berita Acara Serah Terima
+│   │       └── BikeModal.tsx            # Modal Tambah/Ubah Data Armada Motor
 │   ├── data/
 │   │   └── bikes.ts             # Data statis fallback motor & FAQ
-│   ├── img/
-│   │   ├── missionary-logo.jpg              # Master logo
-│   │   ├── missionary-horizontal-white.png  # Logo transparan putih (Header & Admin)
-│   │   ├── missionary-mark-white.png        # Lambang M transparan
-│   │   ├── missionary-favicon.png           # Favicon browser
-│   │   ├── beat.jpg                         # Foto Honda BeAT
-│   │   ├── scoppy.jpg                       # Foto Honda Scoopy
-│   │   ├── vari.jpg                         # Foto Honda Vario 125
-│   │   ├── nmax.jpg                         # Foto Yamaha NMAX
-│   │   └── aerox.jpg                        # Foto Yamaha Aerox
-│   └── components/
-│       ├── Header.tsx           # Navigasi atas publik & tombol Cek Pesanan / Admin
-│       ├── Hero.tsx             # Banner utama & headline single-line
-│       ├── SearchAndBrowse.tsx  # Katalog 5 armada motor & filter tarif
-│       ├── BikeDetailModal.tsx  # Modal detail motor & submit booking ke backend
-│       ├── BookingTrackModal.tsx# Modal pelacakan pesanan mandiri bagi pelanggan
-│       ├── AdminLogin.tsx       # Halaman login PIN portal admin operasional
-│       ├── AdminDashboard.tsx   # Container utama portal admin berstandar internasional
-│       ├── admin/
-│       │   ├── AdminSidebar.tsx         # Sidebar navigasi (Expanded & Compact 72px)
-│       │   ├── AdminTopbar.tsx          # Topbar breadcrumb, status WAL, & aksi cepat
-│       │   ├── OverviewTab.tsx          # Tab Ikhtisar Eksekutif & KPI Cards
-│       │   ├── AnalyticsTab.tsx         # Tab Analitik & Grafik Tren Omset SVG
-│       │   ├── DatabaseExplorerTab.tsx  # Tab Inspeksi Tabel SQLite & Query Runner
-│       │   ├── ScheduleCalendarTab.tsx  # Tab Kalender Jadwal Alokasi 14 Hari
-│       │   ├── SettingsTab.tsx          # Tab Diagnostik Sistem & Backup Database
-│       │   ├── ManualBookingModal.tsx   # Modal Input Pemesanan Manual (Walk-in)
-│       │   ├── InvoiceModal.tsx         # Modal Struk Resmi & Tanda Terima Kunci
-│       │   └── BikeModal.tsx            # Modal Tambah/Ubah Data Armada Motor
-│       ├── HowItWorks.tsx       # Alur penyewaan 3 langkah
-│       ├── Testimonials.tsx     # Ulasan wisatawan & pelanggan Bandung
-│       ├── FaqSection.tsx       # Tanya jawab seputar syarat & ketentuan sewa
-│       ├── ListBikeModal.tsx    # Modal pendaftaran mitra pemilik motor
-│       └── Footer.tsx           # Info garasi, kontak, dan tautan portal admin
+│   └── types.ts                 # TypeScript interface (Motorbike, Review, Booking, dll.)
+├── next.config.mjs               # Konfigurasi Next.js
+├── postcss.config.mjs            # Konfigurasi PostCSS & Tailwind v4
+├── package.json                 # Dependensi Next.js & Convex
+└── tsconfig.json                # Pengaturan TypeScript App Router
 ```
 
 ---
 
 ## 💻 Panduan Menjalankan Proyek
 
-### 1. Prasyarat
-Pastikan sistem Anda telah terpasang:
-* **Node.js** (versi 18 ke atas disarankan)
-* **npm** atau **yarn** / **pnpm**
-
-### 2. Instalasi Dependensi
+### 1. Instalasi Dependensi
 ```bash
 npm install
 ```
 
-### 3. Menjalankan Server & Client Secara Bersamaan
+### 2. Menjalankan Server Pengembangan (Next.js)
 ```bash
 npm run dev
 ```
-Perintah ini akan menjalankan backend Express API (`port 5001`) dan frontend Vite (`port 3000`) secara bersamaan menggunakan `concurrently`.
+Buka browser ke [http://localhost:3000](http://localhost:3000).
+- **Portal Admin**: Buka langsung [http://localhost:3000/admin](http://localhost:3000/admin) (PIN: `misionary2026`).
 
-- **Aplikasi Web Pelanggan**: Buka [http://localhost:3000](http://localhost:3000)
-- **Portal Admin Operasional**: Buka langsung [http://localhost:3000/admin](http://localhost:3000/admin)
-  - **PIN Default**: `misionary2026`
-- **Fitur Cek Pesanan**: Klik tombol **Cek Pesanan** di navigasi atau coba kode sampel `MSN-0001`
+### 3. Mengaktifkan Cloud Backend Convex (Opsional / Sinkronisasi Online)
+Untuk menghubungkan database cloud Convex ke akun GitHub Anda:
+```bash
+npx convex dev
+```
+Perintah ini akan membuka browser untuk login akun Convex gratis, membuat project cloud, dan menghasilkan file `.env.local` berisi `NEXT_PUBLIC_CONVEX_URL`.
 
 ### 4. Build untuk Produksi
 ```bash
 npm run build
 ```
-File hasil kompilasi akan tersimpan di dalam folder `dist/` dan siap diunggah ke layanan hosting (seperti Vercel, Netlify, atau Cloudflare Pages).
 
-### 5. Pratinjau Hasil Build
-```bash
-npm run preview
-```
+---
+
+## 🚀 Panduan Deployment ke Vercel
+
+1. Push perubahan terbaru ke repository GitHub:
+   ```bash
+   git push origin feat/features
+   ```
+2. Buka dashboard project di [vercel.com](https://vercel.com).
+3. Vercel akan secara otomatis mendeteksi proyek sebagai **Next.js** dan melakukan build serta deploy tanpa konfigurasi manual apapun!
+4. *(Opsional untuk integrasi Convex di Vercel)*:
+   - Tambahkan integrasi **Convex** langsung dari Vercel Marketplace (1-klik), atau
+   - Masukkan `NEXT_PUBLIC_CONVEX_URL` dan `CONVEX_DEPLOYMENT` di **Settings > Environment Variables** pada Vercel.
 
 ---
 
